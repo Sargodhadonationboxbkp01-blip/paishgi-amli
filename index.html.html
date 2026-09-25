@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ذمہ دار پورٹل</title>
+
+<!--
+  ==========================================================
+  یہاں نیچے صرف ایک لائن بدلنی ہے:
+  APPS_SCRIPT_URL کی جگہ اپنے Apps Script کا اصل ویب ایپ لنک
+  (وہ لمبا والا لنک جو .../exec پر ختم ہوتا ہے) لگا دیں۔
+  یہ لنک Apps Script → Deploy → Manage deployments سے ملتا ہے۔
+  ==========================================================
+-->
+<script>
+  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzj4qCrhyGzHn8SByDQZvpMzgsbCmTLslWbMdTyI31sYsOT8n1OHHOyghbmfm3oNWJM/exec";
+  window.location.replace(APPS_SCRIPT_URL);
+</script>
+<meta http-equiv="refresh" content="0; url=https://script.google.com/macros/s/AKfycbzj4qCrhyGzHn8SByDQZvpMzgsbCmTLslWbMdTyI31sYsOT8n1OHHOyghbmfm3oNWJM/exec">
+
+<style>
+  body{font-family:Tahoma,sans-serif;background:#f6f5f2;color:#1f2a24;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;text-align:center}
+  .box{background:#fff;border:1px solid #e4e0d8;border-radius:14px;padding:28px 24px;max-width:360px}
+  a{color:#2f6f4f;font-weight:700}
+</style>
+</head>
+<body>
+  <div class="box">
+    <p>پورٹل کھل رہا ہے، براہ کرم انتظار کریں…</p>
+    <p>اگر خودکار طور پر نہ کھلے تو نیچے دیے گئے لنک پر کلک کریں:</p>
+    <p><a id="fallback" href="https://script.google.com/macros/s/AKfycbzj4qCrhyGzHn8SByDQZvpMzgsbCmTLslWbMdTyI31sYsOT8n1OHHOyghbmfm3oNWJM/exec">پورٹل کھولیں</a></p>
+  </div>
+</body>
+</html>
