@@ -64,11 +64,8 @@ const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwkZwjln2CsNukF
 
 function gsRun(fn){
   const args = Array.prototype.slice.call(arguments,1);
-  return fetch(APPS_SCRIPT_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // 'text/plain' جان بوجھ کر — CORS preflight سے بچنے کے لیے
-    body: JSON.stringify({ fn: fn, args: args })
-  })
+  const url = APPS_SCRIPT_URL + '?fn=' + encodeURIComponent(fn) + '&args=' + encodeURIComponent(JSON.stringify(args));
+  return fetch(url, { method: 'GET' }) // GET استعمال کیا — POST پر Google کے ریڈائرکٹ کے ساتھ CORS مسئلہ بنتا ہے
   .then(r=>r.json())
   .then(data=>{
     if(!data.ok) throw new Error(data.error || 'نامعلوم خرابی۔');
