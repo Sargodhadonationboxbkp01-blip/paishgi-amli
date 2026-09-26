@@ -62,14 +62,22 @@ const ORG_NAME = 'ذمہ دار پورٹل';
  *  کوئی اثر نہیں پڑتا۔ اگر کبھی نیا deployment بنانا پڑے تو صرف یہی لائن بدلیں۔ */
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwkZwjln2CsNukF0k3GaxRkOYdv1gx74oPGtEAAxzoXWuDZ-r6gUTIyDCEmKNRu8jYv/exec";
 
+let __rpcSeq = 0;
 function gsRun(fn){
   const args = Array.prototype.slice.call(arguments,1);
-  const url = APPS_SCRIPT_URL + '?fn=' + encodeURIComponent(fn) + '&args=' + encodeURIComponent(JSON.stringify(args));
-  return fetch(url, { method: 'GET' }) // GET استعمال کیا — POST پر Google کے ریڈائرکٹ کے ساتھ CORS مسئلہ بنتا ہے
-  .then(r=>r.json())
-  .then(data=>{
-    if(!data.ok) throw new Error(data.error || 'نامعلوم خرابی۔');
-    return data.result;
+  return new Promise((resolve,reject)=>{
+    const cbName = '__rpc_cb_' + (__rpcSeq++) + '_' + Date.now();
+    const script = document.createElement('script');
+    let settled = false;
+    function cleanup(){ delete window[cbName]; if(script.parentNode) script.parentNode.removeChild(script); clearTimeout(timer); }
+    window[cbName] = function(data){
+      if(settled) return; settled = true; cleanup();
+      if(!data.ok) reject(new Error(data.error || 'نامعلوم خرابی۔')); else resolve(data.result);
+    };
+    const timer = setTimeout(()=>{ if(!settled){ settled=true; cleanup(); reject(new Error('سرور سے رابطہ ٹائم آؤٹ — دوبارہ کوشش کریں۔')); } }, 25000);
+    script.onerror = function(){ if(!settled){ settled=true; cleanup(); reject(new Error('سرور سے رابطہ ناکام۔')); } };
+    script.src = APPS_SCRIPT_URL + '?fn=' + encodeURIComponent(fn) + '&args=' + encodeURIComponent(JSON.stringify(args)) + '&callback=' + cbName;
+    document.body.appendChild(script);
   });
 }
 /** لاگ ان شدہ صارف کے لیے سیشن ٹوکن خودکار طور پر شامل کر دیتا ہے */
