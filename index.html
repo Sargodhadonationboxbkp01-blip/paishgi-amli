@@ -1,35 +1,765 @@
 <!DOCTYPE html>
 <html lang="ur" dir="rtl">
 <head>
+<base target="_top">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ذمہ دار پورٹل</title>
-
-<!--
-  ==========================================================
-  یہاں نیچے صرف ایک لائن بدلنی ہے:
-  APPS_SCRIPT_URL کی جگہ اپنے Apps Script کا اصل ویب ایپ لنک
-  (وہ لمبا والا لنک جو .../exec پر ختم ہوتا ہے) لگا دیں۔
-  یہ لنک Apps Script → Deploy → Manage deployments سے ملتا ہے۔
-  ==========================================================
--->
-<script>
-  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzj4qCrhyGzHn8SByDQZvpMzgsbCmTLslWbMdTyI31sYsOT8n1OHHOyghbmfm3oNWJM/exec";
-  window.location.replace(APPS_SCRIPT_URL);
-</script>
-<meta http-equiv="refresh" content="0; url=https://script.google.com/macros/s/AKfycbzj4qCrhyGzHn8SByDQZvpMzgsbCmTLslWbMdTyI31sYsOT8n1OHHOyghbmfm3oNWJM/exec">
-
 <style>
-  body{font-family:Tahoma,sans-serif;background:#f6f5f2;color:#1f2a24;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;text-align:center}
-  .box{background:#fff;border:1px solid #e4e0d8;border-radius:14px;padding:28px 24px;max-width:360px}
-  a{color:#2f6f4f;font-weight:700}
+:root{ --bg:#f6f5f2; --card:#ffffff; --ink:#1f2a24; --muted:#6b7a72; --accent:#2f6f4f; --accent-d:#255a40; --line:#e4e0d8; --danger:#b3432b; --warn:#8a6d1f; }
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Jameel Noori Nastaleeq","Noto Nastaliq Urdu",Tahoma,sans-serif;font-size:17px;line-height:1.9}
+.wrap{max-width:1000px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:22px;margin:18px 0 4px}
+h1:first-of-type{margin-top:0}
+.sub{color:var(--muted);margin:0 0 16px;font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px}
+label{display:block;font-size:14px;color:var(--muted);margin:10px 0 4px}
+input,textarea,select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font-family:inherit;font-size:16px}
+textarea{min-height:65px;resize:vertical}
+button{cursor:pointer;border:none;border-radius:10px;padding:9px 15px;font-size:14px;font-family:inherit;font-weight:600;margin:2px}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-ghost{background:transparent;color:var(--accent);text-decoration:underline;padding:6px}
+.btn-danger{background:transparent;color:var(--danger);padding:4px 8px;font-size:13px}
+.btn-warn{background:#eee0bd;color:var(--warn)}
+.btn-outline{background:#fff;color:var(--accent);border:1px solid var(--accent)}
+.btn-sm{padding:5px 10px;font-size:12px}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row>*{flex:1;min-width:140px}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px}
+.topbar-actions{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.tabs button{background:var(--card);border:1px solid var(--line);color:var(--muted)}
+.tabs button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{border-bottom:1px solid var(--line);padding:7px 5px;text-align:right;vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:12px}
+.tablewrap{overflow-x:auto}
+.msg{color:var(--danger);font-size:14px;margin-top:6px}
+.ok{color:var(--accent-d)}
+.tag{display:inline-block;font-size:11px;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:2px 7px;color:var(--muted)}
+.tag.locked{color:var(--danger);border-color:var(--danger)}
+.tag.submitted{color:var(--warn);border-color:var(--warn)}
+.tag.final{color:#fff;background:var(--accent);border-color:var(--accent)}
+.hint{font-size:12px;color:var(--muted)}
+.modal-back{position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal{background:#fff;border-radius:14px;padding:18px;max-width:380px;width:100%}
+.modal-lg{background:#fff;border-radius:14px;max-width:900px;width:100%;height:88vh;display:flex;flex-direction:column;overflow:hidden}
+.modal-lg .mlbar{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid var(--line)}
+.modal-lg iframe{flex:1;border:0;width:100%}
 </style>
 </head>
 <body>
-  <div class="box">
-    <p>پورٹل کھل رہا ہے، براہ کرم انتظار کریں…</p>
-    <p>اگر خودکار طور پر نہ کھلے تو نیچے دیے گئے لنک پر کلک کریں:</p>
-    <p><a id="fallback" href="https://script.google.com/macros/s/AKfycbzj4qCrhyGzHn8SByDQZvpMzgsbCmTLslWbMdTyI31sYsOT8n1OHHOyghbmfm3oNWJM/exec">پورٹل کھولیں</a></p>
+<div class="wrap" id="app">لوڈ ہو رہا ہے…</div>
+<script>
+/* =================== نام ادارہ — یہاں تبدیل کریں =================== */
+const ORG_NAME = 'ذمہ دار پورٹل';
+
+/* =================== سرور کالز (Apps Script کو بیک گراؤنڈ میں fetch سے کال کرتا ہے) =================== */
+/** یہ وہی Apps Script Web App URL ہے (Deploy > Manage deployments سے ملتا ہے)۔
+ *  یہ صفحہ کبھی اس لنک پر نیویگیٹ نہیں کرتا — صرف ڈیٹا لینے/بھیجنے کے لیے
+ *  بیک گراؤنڈ میں رابطہ کرتا ہے، اس لیے براؤزر میں لاگ ان Google اکاؤنٹس کا
+ *  کوئی اثر نہیں پڑتا۔ اگر کبھی نیا deployment بنانا پڑے تو صرف یہی لائن بدلیں۔ */
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwkZwjln2CsNukF0k3GaxRkOYdv1gx74oPGtEAAxzoXWuDZ-r6gUTIyDCEmKNRu8jYv/exec";
+
+function gsRun(fn){
+  const args = Array.prototype.slice.call(arguments,1);
+  return fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // 'text/plain' جان بوجھ کر — CORS preflight سے بچنے کے لیے
+    body: JSON.stringify({ fn: fn, args: args })
+  })
+  .then(r=>r.json())
+  .then(data=>{
+    if(!data.ok) throw new Error(data.error || 'نامعلوم خرابی۔');
+    return data.result;
+  });
+}
+/** لاگ ان شدہ صارف کے لیے سیشن ٹوکن خودکار طور پر شامل کر دیتا ہے */
+function api(fn){
+  const rest = Array.prototype.slice.call(arguments,1);
+  return gsRun.apply(null, [fn, (me?me.token:null)].concat(rest));
+}
+
+let me=null, editMode=null;
+let nazimTab='sched', nazimZ='', nazimReportMonth='', nazimOverviewMonth='';
+const app=document.getElementById('app');
+function esc(s){ return (s==null?'':String(s)).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function pad2(n){ return String(n).padStart(2,'0'); }
+function today(){ const d=new Date(); return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate()); }
+function curMonth(){ const d=new Date(); return d.getFullYear()+'-'+pad2(d.getMonth()+1); }
+function statusTag(s){ if(s==='locked') return '<span class="tag locked">لاک</span>'; if(s==='submitted') return '<span class="tag submitted">جائزے کے لیے جمع</span>'; return '<span class="tag">ڈرافٹ</span>'; }
+
+/* =================== لاگ ان / لاگ آؤٹ =================== */
+function renderLogin(){
+  app.innerHTML=`
+  <h1>${esc(ORG_NAME)}</h1>
+  <p class="sub">پیشگی اور روزانہ عملی جدول کا نظام — ڈیٹا Google Sheet میں محفوظ ہوتا ہے</p>
+  <div class="card">
+    <label>یوزر نیم</label><input id="lu">
+    <label>پاس ورڈ</label><input id="lp" type="password">
+    <div class="row" style="margin-top:14px"><button class="btn-primary" onclick="doLogin()">لاگ ان</button></div>
+    <div class="msg" id="lmsg"></div>
+  </div>`;
+  document.getElementById('lp').addEventListener('keydown', e=>{ if(e.key==='Enter') doLogin(); });
+}
+async function doLogin(){
+  const u=document.getElementById('lu').value.trim(), p=document.getElementById('lp').value;
+  const msg=document.getElementById('lmsg');
+  msg.className='msg'; msg.textContent='';
+  try{
+    const r=await gsRun('login',u,p);
+    if(!r.ok){ msg.textContent=r.error; return; }
+    me=r;
+    if(me.role==='admin') renderAdmin(); else if(me.role==='nazim') renderNazim(); else renderZimedar();
+  }catch(e){ msg.textContent='خرابی: '+e.message; }
+}
+async function doLogout(){ try{ await api('logout'); }catch(e){} me=null; editMode=null; renderLogin(); }
+function topbar(){
+  const roleLabel = me.role==='admin'?'ایڈمن':me.role==='nazim'?'ناظم':'ذمہ دار';
+  return `<div class="topbar">
+    <div><b>${esc(me.name)}</b> <span class="tag">${roleLabel}</span></div>
+    <div class="topbar-actions">
+      <button class="btn-ghost btn-sm" onclick="openChangePassword()">پاس ورڈ تبدیل کریں</button>
+      <button class="btn-ghost btn-sm" onclick="doLogout()">لاگ آؤٹ</button>
+    </div>
+  </div>`;
+}
+function openChangePassword(){
+  const back=document.createElement('div'); back.className='modal-back'; back.id='cpBack';
+  back.innerHTML=`<div class="modal">
+    <h1 style="margin-top:0">پاس ورڈ تبدیل کریں</h1>
+    <label>موجودہ پاس ورڈ</label><input id="cp_old" type="password">
+    <label>نیا پاس ورڈ</label><input id="cp_new" type="password">
+    <div class="row" style="margin-top:12px">
+      <button class="btn-primary" onclick="submitChangePassword()">محفوظ کریں</button>
+      <button class="btn-ghost" onclick="document.getElementById('cpBack').remove()">منسوخ</button>
+    </div>
+    <div class="msg" id="cpmsg"></div>
+  </div>`;
+  document.body.appendChild(back);
+}
+async function submitChangePassword(){
+  const o=document.getElementById('cp_old').value, n=document.getElementById('cp_new').value;
+  const msg=document.getElementById('cpmsg');
+  try{
+    const r=await api('changeOwnPassword',o,n);
+    if(!r.ok){ msg.textContent=r.error; return; }
+    msg.className='msg ok'; msg.textContent='پاس ورڈ تبدیل ہو گیا۔';
+    setTimeout(()=>{ const b=document.getElementById('cpBack'); if(b) b.remove(); },900);
+  }catch(e){ msg.textContent='خرابی: '+e.message; }
+}
+
+/* =================== ADMIN =================== */
+let designationsCache=[];
+function designationOptions(selected){
+  return designationsCache.map(d=>`<option value="${esc(d.value)}" ${d.value===selected?'selected':''}>${esc(d.label)}</option>`).join('');
+}
+async function renderAdmin(){
+  app.innerHTML=topbar()+`
+  <h1>نیا اکاؤنٹ بنائیں</h1>
+  <div class="card">
+    <label>پورا نام</label><input id="a_name">
+    <label>یوزر نیم</label><input id="a_user">
+    <label>پاس ورڈ</label><input id="a_pass">
+    <label>عہدہ / کردار</label><select id="a_desig"><option value="">لوڈ ہو رہا ہے…</option></select>
+    <div style="margin-top:12px"><button class="btn-primary" onclick="adminCreate()">اکاؤنٹ بنائیں</button></div>
+    <div class="msg" id="amsg"></div>
   </div>
+  <h1>موجودہ اکاؤنٹس</h1>
+  <div class="card tablewrap" id="ulist">لوڈ ہو رہا ہے…</div>
+  <h1>ٹیسٹ ڈیٹا صاف کریں</h1>
+  <div class="card">
+    <p class="sub">یہ صرف تمام پیشگی/عملی اندراجات اور جمع شدہ مہینے حذف کرتا ہے — اکاؤنٹس (لاگ ان) محفوظ رہتے ہیں۔ یہ عمل واپس نہیں ہو سکتا۔</p>
+    <button class="btn-danger" style="border:1px solid var(--danger)" onclick="adminClear()">تمام ٹیسٹ ڈیٹا حذف کریں</button>
+    <div class="msg" id="clmsg"></div>
+  </div>`;
+  try{ designationsCache=await api('getDesignations'); }catch(e){ designationsCache=[]; }
+  document.getElementById('a_desig').innerHTML=designationOptions('');
+  loadUsers();
+}
+async function adminCreate(){
+  const name=document.getElementById('a_name').value.trim(), u=document.getElementById('a_user').value.trim(),
+        p=document.getElementById('a_pass').value, desig=document.getElementById('a_desig').value;
+  const msg=document.getElementById('amsg');
+  try{
+    const r=await api('adminCreateUser',name,u,p,desig);
+    if(!r.ok){ msg.textContent=r.error; return; }
+    ['a_name','a_user','a_pass'].forEach(id=>document.getElementById(id).value='');
+    msg.className='msg ok'; msg.textContent='اکاؤنٹ بن گیا۔'; loadUsers();
+  }catch(e){ msg.className='msg'; msg.textContent='خرابی: '+e.message; }
+}
+async function loadUsers(){
+  const box=document.getElementById('ulist');
+  try{
+    const list=await api('getAllUsers');
+    let html='<table><thead><tr><th>نام</th><th>یوزر نیم</th><th>عہدہ</th><th>حالت</th><th></th></tr></thead><tbody>';
+    list.forEach(v=>{
+      html+=`<tr id="urow_${esc(v.username)}"><td>${esc(v.name)}</td><td>${esc(v.username)}</td><td>${esc(v.designationLabel)}</td>
+      <td>${v.active?'<span class="tag" style="color:var(--accent-d)">فعال</span>':'<span class="tag locked">غیر فعال</span>'}</td>
+      <td>
+        <button class="btn-ghost btn-sm" onclick='adminEditUser(${JSON.stringify(v).replace(/'/g,"&apos;")})'>ترمیم</button>
+        <button class="btn-ghost btn-sm" onclick="adminReset('${v.username}')">پاس ورڈ ری سیٹ</button>
+        <button class="btn-warn btn-sm" onclick="adminToggle('${v.username}',${!v.active})">${v.active?'غیر فعال کریں':'فعال کریں'}</button>
+      </td></tr>`;
+    });
+    box.innerHTML=html+'</tbody></table>';
+  }catch(e){ box.innerHTML='<p class="msg">خرابی: '+esc(e.message)+'</p>'; }
+}
+function adminEditUser(v){
+  const row=document.getElementById('urow_'+v.username);
+  if(!row) return;
+  row.innerHTML=`<td colspan="5">
+    <div class="row" style="align-items:flex-end">
+      <div><label>پورا نام</label><input id="e_name" value="${esc(v.name)}"></div>
+      <div><label>عہدہ / کردار</label><select id="e_desig">${designationOptions(v.designation)}</select></div>
+      <div style="display:flex;gap:6px">
+        <button class="btn-primary btn-sm" onclick="adminSaveEdit('${esc(v.username)}')">محفوظ کریں</button>
+        <button class="btn-ghost btn-sm" onclick="loadUsers()">منسوخ</button>
+      </div>
+    </div>
+    <div class="msg" id="e_msg"></div>
+  </td>`;
+}
+async function adminSaveEdit(username){
+  const name=document.getElementById('e_name').value.trim(), desig=document.getElementById('e_desig').value;
+  try{ const r=await api('adminUpdateUser',username,name,desig); if(!r.ok){ document.getElementById('e_msg').textContent=r.error; return; } loadUsers(); }
+  catch(e){ document.getElementById('e_msg').textContent='خرابی: '+e.message; }
+}
+async function adminReset(username){
+  const np=prompt('نیا پاس ورڈ درج کریں (کم از کم 4 حروف):');
+  if(!np) return;
+  try{ const r=await api('adminResetPassword',username,np); if(!r.ok) alert(r.error); else alert('پاس ورڈ تبدیل ہو گیا۔'); }
+  catch(e){ alert('خرابی: '+e.message); }
+}
+async function adminToggle(username,active){
+  try{ const r=await api('adminSetActive',username,active); if(!r.ok) alert(r.error); else loadUsers(); }
+  catch(e){ alert('خرابی: '+e.message); }
+}
+async function adminClear(){
+  const msg=document.getElementById('clmsg');
+  if(!confirm('کیا آپ واقعی تمام پیشگی/عملی ڈیٹا حذف کرنا چاہتے ہیں؟ یہ واپس نہیں ہو سکتا۔')) return;
+  const typed=prompt('تصدیق کے لیے بڑے حروف میں DELETE لکھیں:');
+  if(typed===null) return;
+  try{
+    const r=await api('adminClearAllData',typed.trim());
+    if(!r.ok){ msg.className='msg'; msg.textContent=r.error; return; }
+    msg.className='msg ok'; msg.textContent='تمام ٹیسٹ ڈیٹا حذف ہو گیا۔';
+  }catch(e){ msg.className='msg'; msg.textContent='خرابی: '+e.message; }
+}
+
+/* =================== ZIMEDAR =================== */
+let zFilterMonth='';
+async function renderZimedar(){
+  zFilterMonth = zFilterMonth || curMonth();
+  const isEditP=editMode&&editMode.mode==='paishgi', isEditA=editMode&&editMode.mode==='amli';
+  const d=editMode?editMode.data:{};
+  app.innerHTML=topbar()+`
+  <h1>پیشگی جدول</h1>
+  <div class="card">
+    <p class="sub">آئندہ تاریخ کے لیے مقام و پروگرام پہلے سے لکھیں۔ محفوظ ہونے پر یہ "ڈرافٹ" رہے گا، نیچے سے پورے مہینے کی پیشگی ایک ساتھ جمع کروائیں۔</p>
+    <div class="row"><div><label>تاریخ</label><input id="p_date" type="date" value="${esc(isEditP?d.Date:'')}" ${isEditP?'disabled':'onchange="onPaishgiDateChange()"'}></div></div>
+    <label>مقام (پیشگی)</label><input id="p_mp" value="${esc(isEditP?d.MuqamPaishgi:'')}">
+    <label>پیشگی جدول</label><textarea id="p_pj">${esc(isEditP?d.PaishgiJadwal:'')}</textarea>
+    <div style="margin-top:10px">
+      <button class="btn-primary" onclick="saveP()">${isEditP?'محفوظ کریں':'شامل کریں'}</button>
+      ${isEditP?'<button class="btn-ghost" onclick="editMode=null;renderZimedar()">منسوخ</button>':''}
+    </div>
+    <div class="msg" id="pmsg"></div>
+    <div class="row" style="margin-top:14px;align-items:flex-end">
+      <div><label>مہینہ</label><input id="p_submonth" type="month" value="${curMonth()}"></div>
+      <div><button class="btn-warn" onclick="submitPaishgiMonth()">اس مہینے کی پوری پیشگی جمع کروائیں</button></div>
+    </div>
+    <div class="msg" id="psmsg"></div>
+  </div>
+
+  <h1>روزانہ عملی اندراج</h1>
+  <div class="card">
+    <p class="sub">جو کام آج فی الواقع ہوا وہ یہاں لکھیں — یہ روزانہ اپڈیٹ ہوتا رہے، ناظم کو فوری نظر آتا ہے۔</p>
+    <div class="row"><div><label>تاریخ</label><input id="a_date" type="date" value="${esc(isEditA?d.Date:today())}" ${isEditA?'disabled':'onchange="onAmliDateChange()"'}></div></div>
+    <label>مقام (عملی)</label><input id="a_ma" value="${esc(isEditA?d.MuqamAmli:'')}">
+    <label>عملی جدول</label><textarea id="a_aj">${esc(isEditA?d.AmliJadwal:'')}</textarea>
+    <div style="margin-top:10px">
+      <button class="btn-primary" onclick="saveA()">محفوظ کریں</button>
+      ${isEditA?'<button class="btn-ghost" onclick="editMode=null;renderZimedar()">منسوخ</button>':''}
+    </div>
+    <div class="msg" id="amsg2"></div>
+  </div>
+
+  <h1>مہینہ مکمل جمع کروائیں</h1>
+  <div class="card">
+    <p class="sub">پیشگی اور عملی جدول مکمل ہونے کے بعد پورا مہینہ حتمی طور پر جمع کروائیں — اس کے بعد اس مہینے میں کوئی تبدیلی نہیں ہو سکے گی۔</p>
+    <div class="row"><input id="m_pick" type="month" value="${curMonth()}"><button class="btn-primary" onclick="submitMonth()">مہینہ حتمی جمع کروائیں</button></div>
+    <div class="msg" id="mmsg"></div>
+    <div id="submittedMonths"></div>
+  </div>
+
+  <h1>میری فہرست</h1>
+  <div class="card">
+    <div class="row" style="align-items:flex-end">
+      <div><label>مہینہ منتخب کریں</label><input id="z_listmonth" type="month" value="${esc(zFilterMonth)}" onchange="zFilterMonth=this.value;loadMyEntries()"></div>
+      <div style="display:flex;gap:8px;align-items:flex-end">
+        <button class="btn-outline" onclick="previewMine()">پیش منظر دیکھیں</button>
+        <button class="btn-outline" onclick="exportMine('excel')">Excel ڈاؤن لوڈ</button>
+        <button class="btn-outline" onclick="exportMine('print')">پرنٹ / PDF</button>
+      </div>
+    </div>
+  </div>
+  <div class="card tablewrap" id="mylist">لوڈ ہو رہا ہے…</div>`;
+  loadMyEntries(); loadMySubmittedMonths();
+  if(!isEditA) onAmliDateChange();
+}
+/** اسی تاریخ کی پہلے سے موجود پیشگی دکھاتا ہے تاکہ ذمہ دار بار بار خالی سے شروع نہ کرے */
+async function onPaishgiDateChange(){
+  const date=document.getElementById('p_date').value;
+  const msg=document.getElementById('pmsg');
+  if(!date){ return; }
+  try{
+    const list=await api('getMyEntries');
+    const existing=list.find(v=>v.Date===date);
+    document.getElementById('p_mp').value = existing ? (existing.MuqamPaishgi||'') : '';
+    document.getElementById('p_pj').value = existing ? (existing.PaishgiJadwal||'') : '';
+    if(existing && existing.PaishgiStatus!=='draft'){ msg.className='msg'; msg.textContent='یہ پیشگی جمع/لاک ہو چکی، تبدیلی کے لیے ناظم سے رابطہ کریں۔'; }
+    else if(existing){ msg.className='msg ok'; msg.textContent='اس تاریخ کی پہلے سے موجود پیشگی نیچے دکھائی گئی ہے — تبدیل کر کے دوبارہ محفوظ کریں۔'; }
+    else { msg.className='msg'; msg.textContent=''; }
+  }catch(e){}
+}
+/** اسی تاریخ کا پہلے سے موجود عملی جدول دکھاتا ہے */
+async function onAmliDateChange(){
+  const dateEl=document.getElementById('a_date'); if(!dateEl) return;
+  const date=dateEl.value, msg=document.getElementById('amsg2');
+  if(!date){ return; }
+  try{
+    const list=await api('getMyEntries');
+    const existing=list.find(v=>v.Date===date);
+    document.getElementById('a_ma').value = existing ? (existing.MuqamAmli||'') : '';
+    document.getElementById('a_aj').value = existing ? (existing.AmliJadwal||'') : '';
+    if(msg){ msg.className = existing ? 'msg ok' : 'msg'; msg.textContent = existing ? 'اس تاریخ کا پہلے سے موجود عملی جدول نیچے دکھایا گیا ہے۔' : ''; }
+  }catch(e){}
+}
+/** پیشگی اور عملی جدول ایک ساتھ، پرنٹ جیسی شکل میں پیش منظر دکھاتا ہے */
+async function previewMine(){
+  try{
+    const list=(await api('getMyEntries')).filter(v=>v.Date.slice(0,7)===zFilterMonth);
+    if(!list.length){ alert('اس مہینے کوئی ڈیٹا نہیں۔'); return; }
+    const meta={ title: ORG_NAME, subtitle: 'ماہانہ جدول — پیش منظر', name: me.name, month: zFilterMonth };
+    showPreviewModal(reportDocHtml(list, meta, false, false));
+  }catch(e){ alert('خرابی: '+e.message); }
+}
+function showPreviewModal(html){
+  const old=document.getElementById('previewModal'); if(old) old.remove();
+  const back=document.createElement('div'); back.className='modal-back'; back.id='previewModal';
+  back.innerHTML=`<div class="modal-lg">
+    <div class="mlbar"><b>پیش منظر</b><button class="btn-ghost btn-sm" onclick="document.getElementById('previewModal').remove()">بند کریں</button></div>
+    <iframe id="previewFrame"></iframe>
+  </div>`;
+  document.body.appendChild(back);
+  document.getElementById('previewFrame').srcdoc=html;
+}
+async function saveP(){
+  const date=document.getElementById('p_date').value, mp=document.getElementById('p_mp').value.trim(), pj=document.getElementById('p_pj').value.trim();
+  const msg=document.getElementById('pmsg');
+  if(!date){ msg.textContent='تاریخ درج کریں۔'; return; }
+  try{
+    const r = editMode ? await api('upsertPaishgi', editMode.data.Date, mp, pj) : await api('upsertPaishgi', date, mp, pj);
+    if(!r.ok){ msg.textContent=r.error; return; }
+    msg.className='msg ok'; msg.textContent='محفوظ ہو گیا۔'; editMode=null; renderZimedar();
+  }catch(e){ msg.className='msg'; msg.textContent='خرابی: '+e.message; }
+}
+async function saveA(){
+  const date=document.getElementById('a_date').value, ma=document.getElementById('a_ma').value.trim(), aj=document.getElementById('a_aj').value.trim();
+  const msg=document.getElementById('amsg2');
+  if(!date){ msg.textContent='تاریخ درج کریں۔'; return; }
+  try{
+    const r = editMode ? await api('upsertAmli', editMode.data.Date, ma, aj) : await api('upsertAmli', date, ma, aj);
+    if(!r.ok){ msg.textContent=r.error; return; }
+    msg.className='msg ok'; msg.textContent='محفوظ ہو گیا۔'; editMode=null; renderZimedar();
+  }catch(e){ msg.className='msg'; msg.textContent='خرابی: '+e.message; }
+}
+function startEditPaishgi(data){ editMode={mode:'paishgi',data}; renderZimedar(); window.scrollTo(0,0); }
+function startEditAmli(data){ editMode={mode:'amli',data}; renderZimedar(); window.scrollTo(0,0); }
+async function delEntry(id){ if(!confirm('یہ اندراج حذف کریں؟')) return; try{ const r=await api('deleteEntry',id); if(!r.ok) alert(r.error); else loadMyEntries(); }catch(e){ alert('خرابی: '+e.message); } }
+async function submitPaishgiMonth(){
+  const month=document.getElementById('p_submonth').value, msg=document.getElementById('psmsg');
+  if(!month){ msg.textContent='مہینہ منتخب کریں۔'; return; }
+  try{
+    const r=await api('submitPaishgiMonth',month);
+    if(!r.ok){ msg.className='msg'; msg.textContent=r.error; return; }
+    msg.className='msg ok'; msg.textContent=r.count+' اندراجات جمع کروا دیے گئے۔'; loadMyEntries();
+  }catch(e){ msg.className='msg'; msg.textContent='خرابی: '+e.message; }
+}
+async function submitMonth(){
+  const month=document.getElementById('m_pick').value, msg=document.getElementById('mmsg');
+  if(!month){ msg.textContent='مہینہ منتخب کریں۔'; return; }
+  if(!confirm('اس مہینے کے بعد کوئی تبدیلی ممکن نہیں ہوگی۔ جاری رکھیں؟')) return;
+  try{
+    const r=await api('submitMonth',month);
+    if(!r.ok){ msg.className='msg'; msg.textContent=r.error; return; }
+    msg.className='msg ok'; msg.textContent='مہینہ جمع ہو گیا۔'; loadMyEntries(); loadMySubmittedMonths();
+  }catch(e){ msg.className='msg'; msg.textContent='خرابی: '+e.message; }
+}
+async function loadMySubmittedMonths(){
+  const box=document.getElementById('submittedMonths');
+  try{
+    const months=(await api('getMySubmittedMonths')).sort().reverse();
+    box.innerHTML=months.length?'<p class="sub" style="margin-top:10px">جمع شدہ مہینے: '+months.map(m=>'<span class="tag final">'+esc(m)+'</span>').join(' ')+'</p>':'';
+  }catch(e){}
+}
+async function loadMyEntries(){
+  const box=document.getElementById('mylist');
+  box.innerHTML='لوڈ ہو رہا ہے…';
+  try{
+    const [list,lockedMonths]=await Promise.all([api('getMyEntries'),api('getMySubmittedMonths')]);
+    const lockedSet=new Set(lockedMonths);
+    const filtered = zFilterMonth ? list.filter(v=>v.Date.slice(0,7)===zFilterMonth) : list;
+    if(!filtered.length){ box.innerHTML='<p class="sub">اس مہینے کوئی اندراج نہیں۔</p>'; return; }
+    let html='<table><thead><tr><th>تاریخ</th><th>دن</th><th>مقام (پیشگی)</th><th>پیشگی جدول</th><th>حالت</th><th>مقام (عملی)</th><th>عملی جدول</th><th></th></tr></thead><tbody>';
+    filtered.forEach(v=>{
+      const mLocked=lockedSet.has(v.Date.slice(0,7));
+      const canEditP=v.PaishgiStatus==='draft'&&!mLocked, canEditA=!mLocked;
+      const dataStr=JSON.stringify(v).replace(/"/g,'&quot;');
+      html+=`<tr><td>${esc(v.Date)}</td><td>${esc(v.Din)}</td><td>${esc(v.MuqamPaishgi)}</td><td>${esc(v.PaishgiJadwal)}</td>
+      <td>${mLocked?'<span class="tag final">مہینہ جمع شدہ</span>':statusTag(v.PaishgiStatus)}</td>
+      <td>${esc(v.MuqamAmli)}</td><td>${esc(v.AmliJadwal)}</td><td>
+      ${canEditP?`<button class="btn-ghost btn-sm" onclick='startEditPaishgi(${dataStr})'>ترمیم پیشگی</button>
+      <button class="btn-danger btn-sm" onclick="delEntry('${v.ID}')">حذف</button>`:''}
+      ${canEditA?`<button class="btn-ghost btn-sm" onclick='startEditAmli(${dataStr})'>عملی اپڈیٹ</button>`:''}
+      ${!canEditP&&v.PaishgiStatus!=='draft'&&!mLocked?'<div class="hint">پیشگی میں تبدیلی کیلئے ناظم سے رابطہ کریں</div>':''}
+      </td></tr>`;
+    });
+    box.innerHTML=html+'</tbody></table>';
+  }catch(e){ box.innerHTML='<p class="msg">خرابی: '+esc(e.message)+'</p>'; }
+}
+async function exportMine(kind){
+  try{
+    const list=(await api('getMyEntries')).filter(v=>v.Date.slice(0,7)===zFilterMonth);
+    if(!list.length){ alert('اس مہینے کوئی ڈیٹا نہیں۔'); return; }
+    const meta={ title: ORG_NAME, subtitle: 'ماہانہ جدول', name: me.name, month: zFilterMonth };
+    if(kind==='excel') exportToExcel(list, meta, false); else printReport(list, meta, false);
+  }catch(e){ alert('خرابی: '+e.message); }
+}
+
+/* =================== NAZIM =================== */
+async function renderNazim(){
+  app.innerHTML=topbar()+`
+  <div class="tabs">
+    <button class="${nazimTab==='sched'?'active':''}" onclick="nazimTab='sched';renderNazim()">ذمہ داران کے جدول</button>
+    <button class="${nazimTab==='pending'?'active':''}" onclick="nazimTab='pending';renderNazim()">پیشگی زیر جائزہ</button>
+    <button class="${nazimTab==='report'?'active':''}" onclick="nazimTab='report';renderNazim()">ماہانہ رپورٹ</button>
+    <button class="${nazimTab==='sub'?'active':''}" onclick="nazimTab='sub';renderNazim()">جمع شدہ مہینے</button>
+    <button class="${nazimTab==='overview'?'active':''}" onclick="nazimTab='overview';renderNazim()">خلاصہ</button>
+  </div>
+  <div id="nbody"></div>`;
+  if(nazimTab==='sched') renderNazimSched();
+  else if(nazimTab==='pending') renderNazimPending();
+  else if(nazimTab==='report') renderNazimReport();
+  else if(nazimTab==='sub') renderNazimSub();
+  else renderNazimOverview();
+}
+async function renderNazimSched(){
+  const body=document.getElementById('nbody');
+  body.innerHTML=`<div class="card"><label>ذمہ دار منتخب کریں</label><select id="zsel" onchange="nazimZ=this.value;loadForZimedar(this.value)"><option>لوڈ ہو رہا ہے…</option></select></div>
+  <div class="card tablewrap" id="zlist"><p class="sub">اوپر سے ذمہ دار منتخب کریں۔</p></div>`;
+  const list=await api('getZimedars');
+  const sel=document.getElementById('zsel');
+  sel.innerHTML=list.length?'<option value="">-- منتخب کریں --</option>'+list.map(z=>`<option value="${esc(z.username)}">${esc(z.name)} (${esc(z.username)})</option>`).join(''):'<option value="">ابھی کوئی ذمہ دار نہیں</option>';
+  if(nazimZ){ sel.value=nazimZ; loadForZimedar(nazimZ); }
+}
+async function loadForZimedar(username){
+  const box=document.getElementById('zlist');
+  if(!username){ box.innerHTML='<p class="sub">اوپر سے ذمہ دار منتخب کریں۔</p>'; return; }
+  box.innerHTML='لوڈ ہو رہا ہے…';
+  try{
+    const list=await api('getEntriesForZimedar',username);
+    if(!list.length){ box.innerHTML='<p class="sub">اس ذمہ دار کا ابھی کوئی اندراج نہیں۔</p>'; return; }
+    let html=`<div class="row" style="margin-bottom:10px"><button class="btn-outline" onclick='nazimExport("${username}")'>اس ذمہ دار کا ڈیٹا Export کریں</button></div>`;
+    html+='<table><thead><tr><th>تاریخ</th><th>دن</th><th>مقام (پیشگی)</th><th>پیشگی جدول</th><th>حالت</th><th>مقام (عملی)</th><th>عملی جدول</th><th></th></tr></thead><tbody>';
+    list.forEach(v=>{
+      const dataStr=JSON.stringify(v).replace(/"/g,'&quot;');
+      html+=`<tr><td>${esc(v.Date)}</td><td>${esc(v.Din)}</td><td>${esc(v.MuqamPaishgi)}</td><td>${esc(v.PaishgiJadwal)}</td>
+      <td>${statusTag(v.PaishgiStatus)}</td><td>${esc(v.MuqamAmli)}</td><td>${esc(v.AmliJadwal)}</td><td>
+      ${v.PaishgiStatus==='submitted'?`<button class="btn-primary btn-sm" onclick="nazimLock('${v.ID}')">لاک کریں</button>`:''}
+      ${v.PaishgiStatus!=='draft'?`<button class="btn-warn btn-sm" onclick="nazimUnlock('${v.ID}')">ذمہ دار کو حق واپس دیں</button>`:''}
+      <button class="btn-ghost btn-sm" onclick='nazimEdit(${dataStr})'>تدوین</button>
+      </td></tr>`;
+    });
+    box.innerHTML=html+'</tbody></table>';
+  }catch(e){ box.innerHTML='<p class="msg">خرابی: '+esc(e.message)+'</p>'; }
+}
+async function nazimExport(username){
+  try{
+    const list=await api('getEntriesForZimedar',username);
+    if(!list.length){ alert('ڈیٹا موجود نہیں۔'); return; }
+    const name=list[0].Name;
+    const month = list[0].Date.slice(0,7);
+    const meta={ title: ORG_NAME, subtitle:'ذمہ دار رپورٹ', name, month };
+    printReport(list, meta, false);
+  }catch(e){ alert('خرابی: '+e.message); }
+}
+async function nazimLock(id){ try{ await api('nazimLock',id); loadForZimedar(nazimZ); }catch(e){ alert('خرابی: '+e.message); } }
+async function nazimUnlock(id){ try{ await api('nazimUnlock',id); loadForZimedar(nazimZ); }catch(e){ alert('خرابی: '+e.message); } }
+function nazimEdit(data){
+  const box=document.getElementById('zlist');
+  box.innerHTML=`<div class="card"><h1 style="margin-top:0">تدوین: ${esc(data.Date)}</h1>
+  <label>مقام (پیشگی)</label><input id="n_mp" value="${esc(data.MuqamPaishgi||'')}">
+  <label>پیشگی جدول</label><textarea id="n_pj">${esc(data.PaishgiJadwal||'')}</textarea>
+  <label>مقام (عملی)</label><input id="n_ma" value="${esc(data.MuqamAmli||'')}">
+  <label>عملی جدول</label><textarea id="n_aj">${esc(data.AmliJadwal||'')}</textarea>
+  <div style="margin-top:10px"><button class="btn-primary" onclick="nazimSaveEdit('${data.ID}')">محفوظ کریں</button>
+  <button class="btn-ghost" onclick="loadForZimedar(nazimZ)">منسوخ</button></div><div class="msg" id="nemsg"></div></div>`;
+}
+async function nazimSaveEdit(id){
+  const mp=document.getElementById('n_mp').value.trim(), pj=document.getElementById('n_pj').value.trim(),
+        ma=document.getElementById('n_ma').value.trim(), aj=document.getElementById('n_aj').value.trim();
+  try{ await api('nazimEditEntry',id,mp,pj,ma,aj); loadForZimedar(nazimZ); }
+  catch(e){ document.getElementById('nemsg').textContent='خرابی: '+e.message; }
+}
+let pendingFilterUser='';
+async function renderNazimPending(){
+  const body=document.getElementById('nbody');
+  body.innerHTML=`<div class="card"><label>فلٹر: ذمہ دار</label><select id="pend_filter" onchange="pendingFilterUser=this.value;renderPendingList()"><option value="">لوڈ ہو رہا ہے…</option></select></div>
+  <div id="pendBody">لوڈ ہو رہا ہے…</div>`;
+  try{
+    const list=await api('getPendingPaishgiReview');
+    pendingAllList=list;
+    const sel=document.getElementById('pend_filter');
+    const seen={}; const opts=[];
+    list.forEach(v=>{ if(!seen[v.Username]){ seen[v.Username]=true; opts.push({username:v.Username,name:v.Name}); } });
+    opts.sort((a,b)=>a.name>b.name?1:(a.name<b.name?-1:0));
+    if(!opts.some(o=>o.username===pendingFilterUser)) pendingFilterUser='';
+    sel.innerHTML='<option value="">-- سب ذمہ داران --</option>'+opts.map(o=>`<option value="${esc(o.username)}">${esc(o.name)}</option>`).join('');
+    sel.value=pendingFilterUser;
+    renderPendingList();
+  }catch(e){ document.getElementById('pendBody').innerHTML='<p class="msg">خرابی: '+esc(e.message)+'</p>'; }
+}
+let pendingAllList=[];
+function renderPendingList(){
+  const box=document.getElementById('pendBody');
+  const list = pendingFilterUser ? pendingAllList.filter(v=>v.Username===pendingFilterUser) : pendingAllList;
+  if(!list.length){ box.innerHTML='<div class="card"><p class="sub">فی الحال کوئی پیشگی جائزے کے منتظر نہیں۔</p></div>'; return; }
+  // ذمہ دار کے حساب سے گروپ کریں
+  const groups={};
+  list.forEach(v=>{ (groups[v.Username]=groups[v.Username]||{name:v.Name,rows:[]}).rows.push(v); });
+  let html='';
+  Object.keys(groups).forEach(username=>{
+    const g=groups[username];
+    html+=`<div class="card">
+      <div class="row" style="justify-content:space-between;align-items:center;flex-wrap:wrap">
+        <div><b>${esc(g.name)}</b> <span class="tag submitted">${g.rows.length} اندراجات زیر جائزہ</span></div>
+        <button class="btn-primary btn-sm" onclick="lockAllPending('${username}')">سب لاک کریں (${g.rows.length})</button>
+      </div>
+      <div class="tablewrap"><table><thead><tr><th>تاریخ</th><th>دن</th><th>مقام (پیشگی)</th><th>پیشگی جدول</th><th></th></tr></thead><tbody>`;
+    g.rows.forEach(v=>{ html+=`<tr><td>${esc(v.Date)}</td><td>${esc(v.Din)}</td><td>${esc(v.MuqamPaishgi)}</td><td>${esc(v.PaishgiJadwal)}</td>
+      <td><button class="btn-primary btn-sm" onclick="pendingLock('${v.ID}')">لاک کریں</button></td></tr>`; });
+    html+='</tbody></table></div></div>';
+  });
+  box.innerHTML=html;
+}
+async function pendingLock(id){ try{ await api('nazimLock',id); renderNazimPending(); }catch(e){ alert('خرابی: '+e.message); } }
+async function lockAllPending(username){
+  if(!confirm('اس ذمہ دار کی تمام زیر جائزہ اندراجات لاک کریں؟')) return;
+  try{ const r=await api('nazimLockAllPending',username); if(!r.ok){ alert(r.error); return; } renderNazimPending(); }
+  catch(e){ alert('خرابی: '+e.message); }
+}
+let reportFilterUser='';
+async function renderNazimReport(){
+  const body=document.getElementById('nbody');
+  body.innerHTML=`<div class="card"><div class="row" style="align-items:flex-end">
+  <div><label>مہینہ منتخب کریں</label><input id="r_month" type="month" value="${nazimReportMonth||curMonth()}"></div>
+  <div><label>فلٹر: ذمہ دار</label><select id="r_zimedar" onchange="reportFilterUser=this.value;renderReportTable()"><option value="">-- سب ذمہ داران --</option></select></div>
+  </div>
+  <div class="row" style="margin-top:8px">
+  <button class="btn-primary" onclick="loadReport()">دکھائیں</button>
+  <button class="btn-outline" onclick="reportExport('excel')">Excel ڈاؤن لوڈ</button>
+  <button class="btn-outline" onclick="reportExport('print')">پرنٹ / PDF</button>
+  </div></div>
+  <div class="card tablewrap" id="rlist"></div>`;
+  if(nazimReportMonth) loadReport();
+}
+let currentReportList=[];
+function getFilteredReport(){
+  return reportFilterUser ? currentReportList.filter(v=>v.Username===reportFilterUser) : currentReportList;
+}
+async function loadReport(){
+  nazimReportMonth=document.getElementById('r_month').value;
+  const box=document.getElementById('rlist');
+  box.innerHTML='لوڈ ہو رہا ہے…';
+  try{
+    currentReportList=await api('getReportByMonth',nazimReportMonth);
+    populateReportFilter();
+    renderReportTable();
+  }catch(e){ box.innerHTML='<p class="msg">خرابی: '+esc(e.message)+'</p>'; }
+}
+/** فلٹر ڈراپ ڈاؤن ہمیشہ لوڈ شدہ ڈیٹا ہی سے بنتا ہے — اس لیے Users شیٹ کے یوزر نیم سے
+ *  کوئی فرق پڑنے کی صورت میں بھی فلٹر اور اصل ڈیٹا میں مِس میچ نہیں ہو سکتا۔ */
+function populateReportFilter(){
+  const sel=document.getElementById('r_zimedar'); if(!sel) return;
+  const seen={}; const opts=[];
+  currentReportList.forEach(v=>{ if(!seen[v.Username]){ seen[v.Username]=true; opts.push({username:v.Username,name:v.Name}); } });
+  opts.sort((a,b)=>a.name>b.name?1:(a.name<b.name?-1:0));
+  if(!opts.some(o=>o.username===reportFilterUser)) reportFilterUser='';
+  sel.innerHTML='<option value="">-- سب ذمہ داران --</option>'+opts.map(o=>`<option value="${esc(o.username)}">${esc(o.name)}</option>`).join('');
+  sel.value=reportFilterUser;
+}
+function renderReportTable(){
+  const box=document.getElementById('rlist');
+  const list=getFilteredReport();
+  if(!list.length){ box.innerHTML='<p class="sub">اس مہینے (یا فلٹر کے مطابق) کوئی ڈیٹا نہیں۔</p>'; return; }
+  let html='<table><thead><tr><th>ذمہ دار</th><th>تاریخ</th><th>دن</th><th>مقام (پیشگی)</th><th>پیشگی جدول</th><th>حالت</th><th>مقام (عملی)</th><th>عملی جدول</th></tr></thead><tbody>';
+  list.forEach(v=>{ html+=`<tr><td>${esc(v.Name)}</td><td>${esc(v.Date)}</td><td>${esc(v.Din)}</td><td>${esc(v.MuqamPaishgi)}</td><td>${esc(v.PaishgiJadwal)}</td><td>${statusTag(v.PaishgiStatus)}</td><td>${esc(v.MuqamAmli)}</td><td>${esc(v.AmliJadwal)}</td></tr>`; });
+  box.innerHTML=html+'</tbody></table>';
+}
+function reportExport(kind){
+  const list=getFilteredReport();
+  if(!list.length){ alert('پہلے "دکھائیں" پر کلک کریں یا فلٹر بدلیں۔'); return; }
+  const singleName = reportFilterUser ? list[0].Name : '';
+  const meta={ title: ORG_NAME, subtitle: singleName?'ذمہ دار رپورٹ':'ماہانہ رپورٹ — جملہ ذمہ داران', name: singleName, month: nazimReportMonth };
+  if(kind==='excel') exportToExcel(list, meta, !singleName); else printReport(list, meta, !singleName);
+}
+async function renderNazimSub(){
+  const body=document.getElementById('nbody');
+  body.innerHTML='<div class="card tablewrap" id="subs">لوڈ ہو رہا ہے…</div>';
+  try{
+    const list=await api('getAllSubmittedMonths');
+    const box=document.getElementById('subs');
+    if(!list.length){ box.innerHTML='<p class="sub">ابھی کوئی مہینہ حتمی جمع نہیں ہوا۔</p>'; return; }
+    let html='<table><thead><tr><th>ذمہ دار</th><th>مہینہ</th><th>جمع کرنے کا وقت</th><th></th></tr></thead><tbody>';
+    list.forEach(v=>{ html+=`<tr><td>${esc(v.Name)} (${esc(v.Username)})</td><td>${esc(monthLabel(v.Month))}</td><td>${esc(new Date(v.SubmittedAt).toLocaleString('ur-PK'))}</td><td>
+      <button class="btn-outline btn-sm" onclick="subExport('${esc(v.Username)}','${esc(v.Name)}','${esc(v.Month)}','excel')">Excel</button>
+      <button class="btn-outline btn-sm" onclick="subExport('${esc(v.Username)}','${esc(v.Name)}','${esc(v.Month)}','print')">PDF</button>
+      <button class="btn-warn btn-sm" onclick="reopenMonth('${v.ID}')">دوبارہ کھولیں</button></td></tr>`; });
+    box.innerHTML=html+'</tbody></table>';
+  }catch(e){ document.getElementById('subs').innerHTML='<p class="msg">خرابی: '+esc(e.message)+'</p>'; }
+}
+async function subExport(username,name,month,kind){
+  try{
+    const list=(await api('getEntriesForZimedar',username)).filter(v=>v.Date.slice(0,7)===month);
+    if(!list.length){ alert('ڈیٹا موجود نہیں۔'); return; }
+    const meta={ title: ORG_NAME, subtitle:'ماہانہ جدول (جمع شدہ)', name, month };
+    if(kind==='excel') exportToExcel(list, meta, false); else printReport(list, meta, false);
+  }catch(e){ alert('خرابی: '+e.message); }
+}
+async function reopenMonth(id){ if(!confirm('یہ مہینہ دوبارہ کھولیں؟ ذمہ دار دوبارہ تبدیلی کر سکے گا۔')) return; try{ await api('reopenMonth',id); renderNazimSub(); }catch(e){ alert('خرابی: '+e.message); } }
+async function renderNazimOverview(){
+  const body=document.getElementById('nbody');
+  body.innerHTML=`<div class="card"><label>مہینہ منتخب کریں</label><div class="row"><input id="o_month" type="month" value="${nazimOverviewMonth||curMonth()}"><button class="btn-primary" onclick="loadOverview()">دکھائیں</button></div></div>
+  <div class="card tablewrap" id="ovlist"></div>`;
+  loadOverview();
+}
+async function loadOverview(){
+  nazimOverviewMonth=document.getElementById('o_month').value;
+  const box=document.getElementById('ovlist');
+  box.innerHTML='لوڈ ہو رہا ہے…';
+  try{
+    const list=await api('getMonthOverview',nazimOverviewMonth);
+    if(!list.length){ box.innerHTML='<p class="sub">کوئی ذمہ دار موجود نہیں۔</p>'; return; }
+    let html='<table><thead><tr><th>ذمہ دار</th><th>پیشگی کے دن</th><th>عملی کے دن</th><th>کل دن</th><th>مہینہ حتمی جمع</th></tr></thead><tbody>';
+    list.forEach(v=>{ html+=`<tr><td>${esc(v.name)}</td><td>${v.paishgiDays}</td><td>${v.amliDays}</td><td>${v.totalDays}</td><td>${v.monthFinalized?'<span class="tag final">جمع شدہ</span>':'<span class="tag">باقی</span>'}</td></tr>`; });
+    box.innerHTML=html+'</tbody></table>';
+  }catch(e){ box.innerHTML='<p class="msg">خرابی: '+esc(e.message)+'</p>'; }
+}
+
+/* =================== Excel / PDF Export (A4، Jameel Noori Nastaleeq) =================== */
+const URDU_MONTHS=['جنوری','فروری','مارچ','اپریل','مئی','جون','جولائی','اگست','ستمبر','اکتوبر','نومبر','دسمبر'];
+const EN_MONTHS_SHORT=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+/** 'YYYY-MM' کو پڑھنے کے قابل شکل میں بدلتا ہے، مثلاً "ستمبر 2026 — Sep'26" */
+function monthLabel(m){
+  if(!m) return '';
+  const parts=String(m).split('-'); if(parts.length<2) return m;
+  const yyyy=parts[0], mm=parseInt(parts[1],10);
+  if(!mm||mm<1||mm>12) return m;
+  return URDU_MONTHS[mm-1]+' '+yyyy+' — '+EN_MONTHS_SHORT[mm-1]+"'"+yyyy.slice(2);
+}
+/** رپورٹ سے پہلے فہرست کو تاریخ کے لحاظ سے ترتیب دیتا ہے (پہلی تاریخ سب سے اوپر) */
+function sortForReport(list, includeName){
+  const copy=list.slice();
+  copy.sort(function(a,b){
+    if(includeName){
+      if(a.Name>b.Name) return 1;
+      if(a.Name<b.Name) return -1;
+    }
+    return a.Date<b.Date?-1:(a.Date>b.Date?1:0);
+  });
+  return copy;
+}
+function reportRowsHtml(list, includeName){
+  return sortForReport(list, includeName).map(v=>`<tr>
+    ${includeName?`<td>${esc(v.Name)}</td>`:''}
+    <td>${esc(v.Date)}</td><td>${esc(v.Din)}</td>
+    <td>${esc(v.MuqamPaishgi)}</td><td>${esc(v.PaishgiJadwal)}</td>
+    <td>${esc(v.MuqamAmli)}</td><td>${esc(v.AmliJadwal)}</td>
+  </tr>`).join('');
+}
+function reportHeadHtml(includeName){
+  return `<tr>${includeName?'<th>ذمہ دار</th>':''}<th>تاریخ</th><th>دن</th><th>مقام (پیشگی)</th><th>پیشگی جدول</th><th>مقام (عملی)</th><th>عملی جدول</th></tr>`;
+}
+function reportDocHtml(list, meta, includeName, forExcel){
+  const printCss = forExcel ? '' : `
+    @page { size: A4; margin: 12mm; }
+    @media print { .noprint{display:none} }
+  `;
+  return `<!DOCTYPE html><html lang="ur" dir="rtl"><head><meta charset="UTF-8">
+  <title>${esc(meta.title)} - ${esc(meta.month||'')}</title>
+  <style>
+    *{box-sizing:border-box}
+    body{font-family:"Jameel Noori Nastaleeq","Noto Nastaliq Urdu","Noto Naskh Arabic",Tahoma,sans-serif;direction:rtl;color:#1f2a24;margin:0;font-size:15px}
+    .head{text-align:center;border-bottom:2px solid #2f6f4f;padding-bottom:8px;margin-bottom:10px}
+    .head h1{margin:0;font-size:22px;color:#255a40}
+    .head .s{margin:4px 0 0;font-size:14px;color:#555}
+    .meta{display:flex;justify-content:space-between;font-size:13px;color:#444;margin-bottom:10px}
+    table{width:100%;border-collapse:collapse;font-size:12.5px}
+    th,td{border:1px solid #999;padding:6px 5px;text-align:center;vertical-align:top}
+    th{background:#e7f1ea;font-weight:700}
+    tr{page-break-inside:avoid}
+    .foot{margin-top:14px;font-size:11px;color:#777;text-align:center;border-top:1px solid #ccc;padding-top:6px}
+    ${printCss}
+  </style></head>
+  <body>
+    <div class="head">
+      <h1>${esc(meta.title)}</h1>
+      <p class="s">${esc(meta.subtitle||'')}</p>
+    </div>
+    <div class="meta">
+      <span>${meta.name?('ذمہ دار: '+esc(meta.name)):''}</span>
+      <span>مہینہ: ${esc(monthLabel(meta.month))}</span>
+      <span>تاریخ اجراء: ${esc(new Date().toLocaleDateString('ur-PK'))}</span>
+    </div>
+    <table><thead>${reportHeadHtml(includeName)}</thead><tbody>${reportRowsHtml(list, includeName)}</tbody></table>
+    <div class="foot">${esc(meta.title)} — خودکار طور پر تیار کردہ رپورٹ</div>
+  </body></html>`;
+}
+function printReport(list, meta, includeName){
+  const html = reportDocHtml(list, meta, includeName, false);
+  const iframe = document.createElement('iframe');
+  iframe.style.position='fixed'; iframe.style.right='-10000px'; iframe.style.bottom='0'; iframe.style.width='0'; iframe.style.height='0';
+  document.body.appendChild(iframe);
+  iframe.onload = function(){
+    setTimeout(()=>{
+      iframe.contentWindow.focus();
+      iframe.contentWindow.print();
+      setTimeout(()=>{ iframe.remove(); }, 1000);
+    }, 250);
+  };
+  iframe.srcdoc = html;
+}
+function exportToExcel(list, meta, includeName){
+  const html = reportDocHtml(list, meta, includeName, true)
+    .replace('<html lang="ur" dir="rtl">', '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40" lang="ur" dir="rtl">')
+    .replace('</head>', `<!--[if gte mso 9]><xml>
+      <x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>
+        <x:Name>${esc(meta.month||'Report')}</x:Name>
+        <x:WorksheetOptions><x:DisplayRightToLeft/><x:Print><x:ValidPrinterInfo/><x:PaperSizeIndex>9</x:PaperSizeIndex></x:Print></x:WorksheetOptions>
+      </x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook>
+    </xml><![endif]--></head>`);
+  const blob = new Blob(['\ufeff', html], { type: 'application/vnd.ms-excel;charset=utf-8' });
+  const a = document.createElement('a');
+  const safeName = (meta.name ? meta.name.replace(/\s+/g,'_') : 'Report');
+  a.href = URL.createObjectURL(blob);
+  a.download = safeName + '_' + (meta.month||'') + '.xls';
+  document.body.appendChild(a); a.click(); a.remove();
+}
+
+renderLogin();
+</script>
 </body>
 </html>
