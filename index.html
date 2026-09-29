@@ -4,764 +4,661 @@
 <base target="_top">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap" rel="stylesheet">
 <title>ذمہ دار پورٹل</title>
 <style>
-:root{ --bg:#f6f5f2; --card:#ffffff; --ink:#1f2a24; --muted:#6b7a72; --accent:#2f6f4f; --accent-d:#255a40; --line:#e4e0d8; --danger:#b3432b; --warn:#8a6d1f; }
+:root{--bg:#f2f5f3;--card:#fff;--ink:#17231d;--muted:#66756d;--line:#e2e8e4;
+--p:#2f6f4f;--pl:#e6f3ec;--a:#1f5f8b;--al:#e5eff8;--danger:#b3432b;--warn:#8a6d1f;--warnl:#fbf1d6;
+--acc:var(--p);--accl:var(--pl)}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Jameel Noori Nastaleeq","Noto Nastaliq Urdu",Tahoma,sans-serif;font-size:17px;line-height:1.9}
-.wrap{max-width:1000px;margin:0 auto;padding:20px 16px 40px}
-h1{font-size:22px;margin:18px 0 4px}
-h1:first-of-type{margin-top:0}
-.sub{color:var(--muted);margin:0 0 16px;font-size:14px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px}
-label{display:block;font-size:14px;color:var(--muted);margin:10px 0 4px}
-input,textarea,select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font-family:inherit;font-size:16px}
-textarea{min-height:65px;resize:vertical}
-button{cursor:pointer;border:none;border-radius:10px;padding:9px 15px;font-size:14px;font-family:inherit;font-weight:600;margin:2px}
-.btn-primary{background:var(--accent);color:#fff}
-.btn-ghost{background:transparent;color:var(--accent);text-decoration:underline;padding:6px}
-.btn-danger{background:transparent;color:var(--danger);padding:4px 8px;font-size:13px}
-.btn-warn{background:#eee0bd;color:var(--warn)}
-.btn-outline{background:#fff;color:var(--accent);border:1px solid var(--accent)}
-.btn-sm{padding:5px 10px;font-size:12px}
-.row{display:flex;gap:10px;flex-wrap:wrap}
-.row>*{flex:1;min-width:140px}
-.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px}
-.topbar-actions{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
-.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
-.tabs button{background:var(--card);border:1px solid var(--line);color:var(--muted)}
-.tabs button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th,td{border-bottom:1px solid var(--line);padding:7px 5px;text-align:right;vertical-align:top}
-th{color:var(--muted);font-weight:600;font-size:12px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans Arabic",Tahoma,sans-serif;font-size:15px;line-height:1.8}
+.hero{background:linear-gradient(135deg,#2f6f4f,#1f5f8b);color:#fff;padding:12px 16px}
+.hero-in{max-width:1040px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.ttl{font-size:19px;font-weight:700}.who{font-size:12.5px;opacity:.85}
+.wrap{max-width:1040px;margin:0 auto;padding:16px 14px 110px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:0 1px 3px rgba(20,40,30,.05)}
+h2{font-size:17px;margin:0 0 8px}
+.sub{color:var(--muted);font-size:13px;margin:0 0 10px}
+label{display:block;font-size:12.5px;color:var(--muted);margin:8px 0 3px;font-weight:600}
+input,textarea,select{width:100%;padding:9px 12px;border:1.5px solid var(--line);border-radius:10px;background:#fbfcfb;color:var(--ink);font-family:inherit;font-size:14.5px;transition:border-color .15s,box-shadow .15s}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px var(--accl)}
+input:disabled,textarea:disabled{background:#f0f2f1;color:#55635b;cursor:not-allowed}
+textarea{resize:vertical;min-height:52px}
+.btn{cursor:pointer;border:none;border-radius:10px;padding:9px 16px;font-family:inherit;font-size:13.5px;font-weight:700;background:var(--acc);color:#fff;transition:filter .15s,transform .05s}
+.btn:hover{filter:brightness(1.08)}.btn:active{transform:scale(.98)}
+.btn:disabled{background:#c9d1cc;cursor:not-allowed;filter:none}
+.btn.ghost{background:transparent;color:var(--acc);border:1.5px solid var(--line)}
+.btn.light{background:rgba(255,255,255,.18);color:#fff}
+.btn.warn{background:var(--warnl);color:var(--warn)}
+.btn.danger{background:#f8e3de;color:var(--danger)}
+.btn.sm{padding:5px 10px;font-size:12px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.row>.grow{flex:1;min-width:150px}
+.tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.tab{cursor:pointer;border:1.5px solid var(--line);background:var(--card);color:var(--muted);border-radius:999px;padding:8px 18px;font-family:inherit;font-weight:700;font-size:14px}
+.tab.on{color:#fff;border-color:transparent}
+.tab.on.tp{background:var(--p)}.tab.on.ta{background:var(--a)}.tab.on.tr{background:#4b5563}
+.dot{background:#d9412b;color:#fff;border-radius:999px;font-size:11px;padding:0 7px;margin-inline-start:5px}
+.mbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.mbar input{width:auto;min-width:170px;font-weight:700}
+.mlabel{font-weight:700;font-size:16px;color:var(--acc)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:2px 11px}
+.b-draft{background:#eef1ef;color:#5b6a62}.b-sub{background:var(--warnl);color:var(--warn)}
+.b-lock{background:#f8e3de;color:var(--danger)}.b-done{background:var(--pl);color:var(--p)}.b-info{background:var(--accl);color:var(--acc)}
+.ban{border-radius:12px;padding:10px 14px;font-size:13.5px;margin-bottom:12px;font-weight:600}
+.ban.info{background:var(--accl);color:var(--acc)}.ban.warn{background:var(--warnl);color:var(--warn)}
+.ban.lock{background:#f8e3de;color:var(--danger)}.ban.done{background:var(--pl);color:var(--p)}
+.day{display:grid;grid-template-columns:96px 1fr auto;gap:12px;align-items:start;background:var(--card);border:1px solid var(--line);
+border-inline-start:5px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px}
+.day.filled{border-inline-start-color:var(--acc)}
+.day.dirty{box-shadow:0 0 0 2px #f0c14b88}
+.day.today{background:#fffdf3}
+.dbadge{text-align:center;background:var(--accl);border-radius:12px;padding:8px 4px}
+.day.fri .dbadge{background:#fdf0d5}
+.dnum{font-size:26px;font-weight:800;line-height:1.1;color:var(--acc)}
+.dname{font-size:13px;font-weight:700}.dfull{font-size:10.5px;color:var(--muted)}
+.ref{background:#f5f7f6;border-radius:8px;padding:5px 10px;font-size:12.5px;color:#48574f;margin-bottom:4px}
+.dact{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:96px}
+.ok{color:var(--p);font-weight:800;font-size:12px;opacity:0;transition:opacity .3s}.ok.show{opacity:1}
+.bar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);padding:10px 14px;z-index:20;box-shadow:0 -4px 14px rgba(0,0,0,.06)}
+.bar-in{max-width:1040px;margin:0 auto;display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:space-between}
 .tablewrap{overflow-x:auto}
-.msg{color:var(--danger);font-size:14px;margin-top:6px}
-.ok{color:var(--accent-d)}
-.tag{display:inline-block;font-size:11px;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:2px 7px;color:var(--muted)}
-.tag.locked{color:var(--danger);border-color:var(--danger)}
-.tag.submitted{color:var(--warn);border-color:var(--warn)}
-.tag.final{color:#fff;background:var(--accent);border-color:var(--accent)}
-.hint{font-size:12px;color:var(--muted)}
-.modal-back{position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;z-index:50;padding:16px}
-.modal{background:#fff;border-radius:14px;padding:18px;max-width:380px;width:100%}
-.modal-lg{background:#fff;border-radius:14px;max-width:900px;width:100%;height:88vh;display:flex;flex-direction:column;overflow:hidden}
-.modal-lg .mlbar{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid var(--line)}
-.modal-lg iframe{flex:1;border:0;width:100%}
+table.rt{width:100%;border-collapse:collapse;font-size:13px;min-width:680px}
+.rt th,.rt td{border:1px solid var(--line);padding:6px 8px;text-align:right;vertical-align:top}
+.rt th.gp{background:var(--p);color:#fff;text-align:center}.rt th.ga{background:var(--a);color:#fff;text-align:center}
+.rt th.gp2{background:var(--pl);color:var(--p)}.rt th.ga2{background:var(--al);color:var(--a)}
+.rt th.g0{background:#eef1ef;color:#48574f}
+.rt tr.fri td{background:#fffaf0}
+.rt tr.grp td{background:#eef1ef;font-size:13.5px}
+.dash{color:#b5beb9}
+.msg{color:var(--danger);font-size:13px;margin-top:6px}
+.modal{position:fixed;inset:0;background:rgba(15,25,20,.5);display:flex;align-items:center;justify-content:center;z-index:50;padding:14px}
+.modal.hidden{display:none}
+.mbox{background:#fff;border-radius:16px;padding:18px;width:100%;max-width:460px;max-height:90vh;overflow:auto}
+.toast{position:fixed;top:14px;left:50%;transform:translateX(-50%);background:#17231d;color:#fff;padding:10px 20px;border-radius:999px;z-index:60;font-weight:700;font-size:13.5px;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.toast.err{background:var(--danger)}
+.login{max-width:400px;margin:8vh auto 0;padding:0 14px}
+.login .head{text-align:center;margin-bottom:14px}
+.login .logo{font-size:44px}
+@media (max-width:640px){
+ .day{grid-template-columns:76px 1fr}.dact{grid-column:1/-1;flex-direction:row;justify-content:flex-start}
+ .dnum{font-size:22px}
+}
+@media print{.noprint,.bar,.hero,.tabs{display:none!important}body{background:#fff}.card{box-shadow:none;border:none;padding:0}.wrap{padding:0}}
+
+/* ===== v3: نستعلیق فونٹ + خوبصورت ڈیزائن ===== */
+body{font-family:"Noto Nastaliq Urdu","Jameel Noori Nastaleeq","Segoe UI",Tahoma,serif;font-size:16px;line-height:2.15;background:linear-gradient(180deg,#e6f1ea 0,#f3f6f4 340px) fixed}
+input,textarea,select,button{font-family:inherit;line-height:2}
+input,textarea,select{font-size:16px;padding:3px 14px;border-radius:12px}
+textarea{line-height:2.1;padding-top:8px}
+label{font-size:14px;line-height:1.9;font-weight:500}
+.btn{font-size:15px;padding:3px 18px;border-radius:12px;box-shadow:0 3px 8px rgba(0,0,0,.13)}
+.btn.ghost{box-shadow:none;background:#fff}
+.btn.sm{padding:0 12px;font-size:13.5px}
+.hero{background:linear-gradient(120deg,#1f5f8b,#2f6f4f 62%,#3f8a63);padding:16px;border-radius:0 0 28px 28px;box-shadow:0 10px 26px rgba(31,95,139,.28)}
+.ttl{font-size:24px;line-height:2}.who{font-size:14px}
+.card{border-radius:20px;border:1px solid #e4ece7;box-shadow:0 8px 22px rgba(20,60,40,.07)}
+h2{font-size:19px;line-height:2}
+.tab{font-size:16px;padding:1px 20px;box-shadow:0 3px 8px rgba(0,0,0,.06)}
+.badge{font-size:13px;padding:0 12px;line-height:2}
+.ban{line-height:2.1;font-size:14.5px}
+.day{border-radius:18px;box-shadow:0 4px 12px rgba(20,60,40,.06)}
+.dbadge{background:linear-gradient(160deg,var(--accl),#fff);border:1px solid var(--accl)}
+.dnum{font-family:"Segoe UI",Tahoma,sans-serif;font-size:28px}.dname{font-size:14px;line-height:1.9}
+.rt th,.rt td{padding:3px 10px;line-height:2.05}
+.rt tbody tr:nth-child(even) td{background:#fafcfb}
+.rt tr.fri td{background:#fffaf0!important}
+.mlabel{font-size:20px}
+.toast{font-size:15px;line-height:2}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:14px}
+.stat{border-radius:18px;padding:8px 14px;color:#fff;text-align:center;box-shadow:0 6px 16px rgba(0,0,0,.14)}
+.stat b{display:block;font-size:30px;line-height:1.5;font-family:"Segoe UI",Tahoma,sans-serif}.stat span{font-size:14px}
+.s1{background:linear-gradient(135deg,#2f6f4f,#3f8a63)}.s2{background:linear-gradient(135deg,#c08a1c,#e0a93b)}
+.s3{background:linear-gradient(135deg,#b3432b,#d2603f)}.s4{background:linear-gradient(135deg,#1f5f8b,#3a82b3)}
+.pbar{height:9px;background:#e3eae6;border-radius:99px;overflow:hidden}.pbar i{display:block;height:100%;background:var(--p);border-radius:99px}
+.pbar.a i{background:var(--a)}.pcell{min-width:140px}.pcell b{font-family:"Segoe UI",Tahoma,sans-serif}
+.login .logo{width:86px;height:86px;margin:0 auto 6px;border-radius:26px;background:linear-gradient(135deg,#2f6f4f,#1f5f8b);display:flex;align-items:center;justify-content:center;font-size:44px;box-shadow:0 12px 26px rgba(31,95,139,.32)}
+@media (max-width:640px){body{font-size:15px}.ttl{font-size:20px}}
+
+/* ===== v4: پرنٹ، خلاصہ اور اعداد و شمار ===== */
+@page{size:A4 landscape;margin:9mm}
+.mbox{max-width:580px}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));gap:2px 10px;margin-top:8px;padding:8px 12px;background:var(--accl);border-radius:14px}
+.sgrid label{margin:0;font-size:12.5px;color:#36453d;line-height:1.8}
+.sgrid input{padding:0 8px;font-size:15px;font-family:"Segoe UI",Tahoma,sans-serif;text-align:center;border-radius:10px}
+.sgt{grid-column:1/-1;font-size:13px;font-weight:700;color:var(--acc);margin-top:4px}
+.figchips{display:flex;flex-wrap:wrap;gap:4px}
+.fc{background:#e8f1f8;color:#1f5f8b;border-radius:99px;padding:0 9px;font-size:12px;line-height:1.9;white-space:nowrap}
+.fc b{font-family:"Segoe UI",Tahoma,sans-serif}
+.rt.tight th,.rt.tight td{padding:2px 6px;font-size:12px;line-height:1.95}
+.rt .num{text-align:center;font-family:"Segoe UI",Tahoma,sans-serif}
+.rt tr.tot td{background:#e8f1ec!important;font-weight:700}
+.sumsec{background:#fff;border:1px solid #e1ebe5;border-radius:16px;padding:10px 16px 14px;margin-top:12px}
+.sumsec h3{margin:0 0 4px;font-size:17px;line-height:2}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.kpi{background:linear-gradient(160deg,#f1f8f4,#fff);border:1px solid #dfece5;border-radius:14px;padding:4px 12px;text-align:center}
+.kpi.b{background:linear-gradient(135deg,#2f6f4f,#1f5f8b);border:none}.kpi.b .kv,.kpi.b .kl{color:#fff}
+.kv{font-size:28px;font-weight:800;color:var(--p);line-height:1.6;font-family:"Segoe UI",Tahoma,sans-serif}
+.kl{font-size:13.5px;color:#48574f;line-height:1.9}
+.sbar{display:flex;height:16px;border-radius:99px;overflow:hidden;background:#eee;margin-top:8px}.sbar i{display:block;height:100%}
+.legend{display:flex;gap:16px;font-size:13px;margin-top:4px;flex-wrap:wrap}
+.legend b{font-family:"Segoe UI",Tahoma,sans-serif}
+.pendbox{background:#fff3e9;border:1.5px dashed #c2410c;border-radius:10px;padding:6px 12px;margin-top:2px;font-size:13.5px;color:#9a3412;display:flex;justify-content:space-between;align-items:center}
+.pendbox b{font-family:"Segoe UI",Tahoma,sans-serif;font-size:16px}
+.sumsec{border-inline-start-width:6px;border-inline-start-style:solid}
+.sumsec h3{display:flex;align-items:center;gap:8px}
+.pend-ok{color:var(--p)!important}.pend-bad{color:#c2410c!important}
+.rt td.pend,.rt th.pend{background:#fff3e9}
+.monthpicker{display:flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--accl,#e6f3ec),#fff);border:1px solid var(--line);border-radius:18px;padding:9px 14px;flex-wrap:wrap}
+.monthpicker .mnav{width:36px;height:36px;flex:none;border-radius:50%;background:#fff;color:var(--acc,var(--p));border:1.5px solid var(--line);font-size:19px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0;box-shadow:0 2px 7px rgba(0,0,0,.07);cursor:pointer;line-height:1}
+.monthpicker .mnav:hover{background:var(--acc,var(--p));color:#fff;border-color:transparent}
+.monthpicker .mcenter{display:flex;align-items:center;gap:9px;flex:1;justify-content:center;min-width:180px;flex-wrap:wrap}
+.monthpicker .micon{font-size:19px}
+.monthpicker .mbig{font-size:19px;font-weight:800;color:var(--acc,var(--p));white-space:nowrap}
+.monthpicker input[type=month]{width:auto;max-width:148px;padding:5px 10px;font-size:12.5px;border-radius:10px;background:#fff;border:1.5px solid var(--line)}
+.monthpicker .mtoday{flex:none}
+.zchips{display:flex;flex-wrap:wrap;gap:7px;margin-top:6px}
+.zchip{cursor:pointer;border:1.5px solid var(--line);background:#fff;color:#6b7a72;border-radius:999px;padding:5px 14px;font-family:inherit;font-size:13px;font-weight:700;transition:all .15s}
+.zchip.on{background:linear-gradient(135deg,var(--p),#3f8a63);color:#fff;border-color:transparent;box-shadow:0 3px 8px rgba(47,111,79,.28)}
+.filtbar label{margin-top:0}
+@media (max-width:640px){.monthpicker{justify-content:center}.monthpicker .mbig{font-size:16px}}
 </style>
 </head>
 <body>
-<div class="wrap" id="app">لوڈ ہو رہا ہے…</div>
+<div id="app"></div>
+<div class="modal hidden" id="modal"><div class="mbox" id="mbox"></div></div>
 <script>
-/* =================== نام ادارہ — یہاں تبدیل کریں =================== */
-const ORG_NAME = 'ذمہ دار پورٹل';
-
-/* =================== سرور کالز (Apps Script کو بیک گراؤنڈ میں fetch سے کال کرتا ہے) =================== */
-/** یہ وہی Apps Script Web App URL ہے (Deploy > Manage deployments سے ملتا ہے)۔
- *  یہ صفحہ کبھی اس لنک پر نیویگیٹ نہیں کرتا — صرف ڈیٹا لینے/بھیجنے کے لیے
- *  بیک گراؤنڈ میں رابطہ کرتا ہے، اس لیے براؤزر میں لاگ ان Google اکاؤنٹس کا
- *  کوئی اثر نہیں پڑتا۔ اگر کبھی نیا deployment بنانا پڑے تو صرف یہی لائن بدلیں۔ */
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwuj1G57swC_zwmZDwcMa41Ww1b3MOmEVw9x6-qIypcmge9YnhO_kP-GbvJl68I3ERs/exec";
-
-let __rpcSeq = 0;
+/* ===== helpers ===== */
+const $=id=>document.getElementById(id);
 function gsRun(fn){
-  const args = Array.prototype.slice.call(arguments,1);
+  const args=Array.prototype.slice.call(arguments,1);
   return new Promise((resolve,reject)=>{
-    const cbName = '__rpc_cb_' + (__rpcSeq++) + '_' + Date.now();
-    const script = document.createElement('script');
-    let settled = false;
-    function cleanup(){ delete window[cbName]; if(script.parentNode) script.parentNode.removeChild(script); clearTimeout(timer); }
-    window[cbName] = function(data){
-      if(settled) return; settled = true; cleanup();
-      if(!data.ok) reject(new Error(data.error || 'نامعلوم خرابی۔')); else resolve(data.result);
-    };
-    const timer = setTimeout(()=>{ if(!settled){ settled=true; cleanup(); reject(new Error('سرور سے رابطہ ٹائم آؤٹ — دوبارہ کوشش کریں۔')); } }, 25000);
-    script.onerror = function(){ if(!settled){ settled=true; cleanup(); reject(new Error('سرور سے رابطہ ناکام۔')); } };
-    script.src = APPS_SCRIPT_URL + '?fn=' + encodeURIComponent(fn) + '&args=' + encodeURIComponent(JSON.stringify(args)) + '&callback=' + cbName;
-    document.body.appendChild(script);
+    const runner=google.script.run.withSuccessHandler(resolve).withFailureHandler(e=>reject(new Error((e&&e.message)||e)));
+    runner[fn].apply(runner,args);
   });
 }
-/** لاگ ان شدہ صارف کے لیے سیشن ٹوکن خودکار طور پر شامل کر دیتا ہے */
-function api(fn){
-  const rest = Array.prototype.slice.call(arguments,1);
-  return gsRun.apply(null, [fn, (me?me.token:null)].concat(rest));
-}
-
-let me=null, editMode=null;
-let nazimTab='sched', nazimZ='', nazimReportMonth='', nazimOverviewMonth='';
-const app=document.getElementById('app');
+async function call(fn){ const a=Array.prototype.slice.call(arguments,1);
+  try{ return await gsRun.apply(null,[fn].concat(a)); }catch(e){ toast('خرابی: '+e.message,'err'); return null; } }
 function esc(s){ return (s==null?'':String(s)).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
-function pad2(n){ return String(n).padStart(2,'0'); }
-function today(){ const d=new Date(); return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate()); }
-function curMonth(){ const d=new Date(); return d.getFullYear()+'-'+pad2(d.getMonth()+1); }
-function statusTag(s){ if(s==='locked') return '<span class="tag locked">لاک</span>'; if(s==='submitted') return '<span class="tag submitted">جائزے کے لیے جمع</span>'; return '<span class="tag">ڈرافٹ</span>'; }
+const DAYS=['اتوار','پیر','منگل','بدھ','جمعرات','جمعہ','ہفتہ'];
+const MONTHS=['جنوری','فروری','مارچ','اپریل','مئی','جون','جولائی','اگست','ستمبر','اکتوبر','نومبر','دسمبر'];
+const p2=n=>String(n).padStart(2,'0');
+function curMonth(){const d=new Date();return d.getFullYear()+'-'+p2(d.getMonth()+1);}
+function todayStr(){const d=new Date();return curMonth()+'-'+p2(d.getDate());}
+function daysIn(m){const p=m.split('-').map(Number);return new Date(p[0],p[1],0).getDate();}
+function dstr(m,d){return m+'-'+p2(d);}
+function wdOf(ds){return new Date(ds+'T00:00:00').getDay();}
+function monthLabel(m){const p=m.split('-');return MONTHS[+p[1]-1]+' '+p[0];}
+function shiftM(m,k){const p=m.split('-').map(Number);const d=new Date(p[0],p[1]-1+k,1);return d.getFullYear()+'-'+p2(d.getMonth()+1);}
+function fmtTime(ms){return ms?new Date(ms).toLocaleString('ur-PK'):'';}
+function toast(msg,type){const t=document.createElement('div');t.className='toast'+(type==='err'?' err':'');t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2600);}
+function showModal(html){$('mbox').innerHTML=html;$('modal').classList.remove('hidden');}
+function closeModal(){$('modal').classList.add('hidden');}
+function askConfirm(text){return new Promise(res=>{
+  showModal(`<h2>تصدیق</h2><p>${esc(text)}</p><div class="row" style="justify-content:flex-end"><button class="btn ghost" id="cn">نہیں</button><button class="btn" id="cy">جی ہاں</button></div>`);
+  $('cy').onclick=()=>{closeModal();res(true);};$('cn').onclick=()=>{closeModal();res(false);};});}
+function pBadge(s){return s==='locked'?'<span class="badge b-lock">🔒 پیشگی لاک</span>':s==='submitted'?'<span class="badge b-sub">⏳ پیشگی جمع — جائزے کا انتظار</span>':'<span class="badge b-draft">✏️ پیشگی ڈرافٹ</span>';}
+function mBadge(f){return f?'<span class="badge b-done">✔ مہینہ جمع شدہ</span>':'<span class="badge b-draft">مہینہ کھلا ہے</span>';}
+function monthBar(id,val,fn){const cur=curMonth();
+  return `<div class="monthpicker">
+  <button class="mnav" type="button" title="پچھلا مہینہ" onclick="${fn}(shiftM('${val}',-1))">‹</button>
+  <div class="mcenter"><span class="micon">🗓️</span><span class="mbig">${monthLabel(val)}</span>
+  <input type="month" id="${id}" value="${val}" onchange="if(this.value)${fn}(this.value)"></div>
+  <button class="mnav" type="button" title="اگلا مہینہ" onclick="${fn}(shiftM('${val}',1))">›</button>
+  ${val!==cur?`<button class="btn sm ghost mtoday" type="button" onclick="${fn}('${cur}')">⟳ رواں مہینہ</button>`:''}
+  </div>`;}
+function hero(){const r=me.role==='admin'?'ایڈمن':me.role==='nazim'?'ناظم':'ذمہ دار';
+  return `<div class="hero noprint"><div class="hero-in"><div><div class="ttl">📋 ذمہ دار پورٹل</div><div class="who">${esc(me.name)} · ${r}</div></div>
+  <button class="btn light" onclick="logout()">لاگ آؤٹ</button></div></div>`;}
+const cell=v=>v?esc(v):'<span class="dash">—</span>';
 
-/* =================== لاگ ان / لاگ آؤٹ =================== */
+/* ===== report table (پیشگی + عملی ساتھ ساتھ) ===== */
+function reportTable(list,o){
+  o=o||{};const span=o.actions?8:7;
+  let h=`<div class="tablewrap"><table class="rt"><thead><tr><th class="g0" rowspan="2">تاریخ</th><th class="g0" rowspan="2">دن</th>
+  <th class="gp" colspan="2">📝 پیشگی جدول</th><th class="ga" colspan="3">✅ عملی جدول</th>${o.actions?'<th class="g0" rowspan="2"></th>':''}</tr>
+  <tr><th class="gp2">مقام</th><th class="gp2">جدول</th><th class="ga2">مقام</th><th class="ga2">جدول</th><th class="ga2">اعداد و شمار</th></tr></thead><tbody>`;
+  let last=null;
+  list.forEach(v=>{
+    if(o.group&&v.Username!==last){last=v.Username;h+=`<tr class="grp"><td colspan="${span}"><b>👤 ${esc(v.Name)}</b> &nbsp;${o.badges?o.badges(v.Username):''}</td></tr>`;}
+    h+=`<tr class="${v.Din==='جمعہ'?'fri':''}"><td>${esc(v.Date)}</td><td>${esc(v.Din)}</td><td>${cell(v.MuqamPaishgi)}</td><td>${cell(v.PaishgiJadwal)}</td><td>${cell(v.MuqamAmli)}</td><td>${cell(v.AmliJadwal)}</td><td>${figChips(v)}</td>${o.actions?'<td>'+o.actions(v)+'</td>':''}</tr>`;
+  });
+  return h+'</tbody></table></div>';
+}
+function monthList(entries,month){const out=[];for(let d=1;d<=daysIn(month);d++){const ds=dstr(month,d),e=entries[ds]||{};
+  out.push({Date:ds,Din:DAYS[wdOf(ds)],MuqamPaishgi:e.MuqamPaishgi,PaishgiJadwal:e.PaishgiJadwal,MuqamAmli:e.MuqamAmli,AmliJadwal:e.AmliJadwal,Stats:e.Stats||{}});}return out;}
+
+/* ===== state ===== */
+let me=null,zTab='p',selMonth=curMonth(),md=null,dirty={};
+let nTab='m',nZ='',nMonth=curMonth(),nMd=null,zList=[],pending=0;
+let repFilterZ='',sumSel=null,subFilterZ='',subPs=[],subMs=[];
+
+/* ===== login / admin ===== */
+function logout(){me=null;dirty={};zTab='p';nTab='m';nZ='';repFilterZ='';sumSel=null;subFilterZ='';renderLogin();}
 function renderLogin(){
-  app.innerHTML=`
-  <h1>${esc(ORG_NAME)}</h1>
-  <p class="sub">پیشگی اور روزانہ عملی جدول کا نظام — ڈیٹا Google Sheet میں محفوظ ہوتا ہے</p>
-  <div class="card">
-    <label>یوزر نیم</label><input id="lu">
-    <label>پاس ورڈ</label><input id="lp" type="password">
-    <div class="row" style="margin-top:14px"><button class="btn-primary" onclick="doLogin()">لاگ ان</button></div>
-    <div class="msg" id="lmsg"></div>
-  </div>`;
-  document.getElementById('lp').addEventListener('keydown', e=>{ if(e.key==='Enter') doLogin(); });
+  $('app').innerHTML=`<div class="login"><div class="head"><div class="logo">📋</div><h2 style="font-size:22px">ذمہ دار پورٹل</h2>
+  <div class="sub">پیشگی اور عملی جدول کا نظام</div></div><div class="card">
+  <label>یوزر نیم</label><input id="lu"><label>پاس ورڈ</label><input id="lp" type="password" onkeydown="if(event.key==='Enter')doLogin()">
+  <div style="margin-top:14px"><button class="btn" style="width:100%" onclick="doLogin()">لاگ اِن</button></div><div class="msg" id="lmsg"></div>
+  <p class="sub" style="margin-top:12px">نیا اکاؤنٹ ایڈمن بناتا ہے۔</p></div></div>`;
 }
 async function doLogin(){
-  const u=document.getElementById('lu').value.trim(), p=document.getElementById('lp').value;
-  const msg=document.getElementById('lmsg');
-  msg.className='msg'; msg.textContent='';
-  try{
-    const r=await gsRun('login',u,p);
-    if(!r.ok){ msg.textContent=r.error; return; }
-    me=r;
-    if(me.role==='admin') renderAdmin(); else if(me.role==='nazim') renderNazim(); else renderZimedar();
-  }catch(e){ msg.textContent='خرابی: '+e.message; }
+  const r=await call('login',$('lu').value.trim(),$('lp').value);
+  if(!r)return; if(!r.ok){$('lmsg').textContent=r.error;return;}
+  me=r; if(me.role==='admin')renderAdmin(); else if(me.role==='nazim')renderNazim(); else renderZimedar();
 }
-async function doLogout(){ try{ await api('logout'); }catch(e){} me=null; editMode=null; renderLogin(); }
-function topbar(){
-  const roleLabel = me.role==='admin'?'ایڈمن':me.role==='nazim'?'ناظم':'ذمہ دار';
-  return `<div class="topbar">
-    <div><b>${esc(me.name)}</b> <span class="tag">${roleLabel}</span></div>
-    <div class="topbar-actions">
-      <button class="btn-ghost btn-sm" onclick="openChangePassword()">پاس ورڈ تبدیل کریں</button>
-      <button class="btn-ghost btn-sm" onclick="doLogout()">لاگ آؤٹ</button>
-    </div>
-  </div>`;
-}
-function openChangePassword(){
-  const back=document.createElement('div'); back.className='modal-back'; back.id='cpBack';
-  back.innerHTML=`<div class="modal">
-    <h1 style="margin-top:0">پاس ورڈ تبدیل کریں</h1>
-    <label>موجودہ پاس ورڈ</label><input id="cp_old" type="password">
-    <label>نیا پاس ورڈ</label><input id="cp_new" type="password">
-    <div class="row" style="margin-top:12px">
-      <button class="btn-primary" onclick="submitChangePassword()">محفوظ کریں</button>
-      <button class="btn-ghost" onclick="document.getElementById('cpBack').remove()">منسوخ</button>
-    </div>
-    <div class="msg" id="cpmsg"></div>
-  </div>`;
-  document.body.appendChild(back);
-}
-async function submitChangePassword(){
-  const o=document.getElementById('cp_old').value, n=document.getElementById('cp_new').value;
-  const msg=document.getElementById('cpmsg');
-  try{
-    const r=await api('changeOwnPassword',o,n);
-    if(!r.ok){ msg.textContent=r.error; return; }
-    msg.className='msg ok'; msg.textContent='پاس ورڈ تبدیل ہو گیا۔';
-    setTimeout(()=>{ const b=document.getElementById('cpBack'); if(b) b.remove(); },900);
-  }catch(e){ msg.textContent='خرابی: '+e.message; }
-}
-
-/* =================== ADMIN =================== */
-let designationsCache=[];
-function designationOptions(selected){
-  return designationsCache.map(d=>`<option value="${esc(d.value)}" ${d.value===selected?'selected':''}>${esc(d.label)}</option>`).join('');
-}
-async function renderAdmin(){
-  app.innerHTML=topbar()+`
-  <h1>نیا اکاؤنٹ بنائیں</h1>
-  <div class="card">
-    <label>پورا نام</label><input id="a_name">
-    <label>یوزر نیم</label><input id="a_user">
-    <label>پاس ورڈ</label><input id="a_pass">
-    <label>عہدہ / کردار</label><select id="a_desig"><option value="">لوڈ ہو رہا ہے…</option></select>
-    <div style="margin-top:12px"><button class="btn-primary" onclick="adminCreate()">اکاؤنٹ بنائیں</button></div>
-    <div class="msg" id="amsg"></div>
-  </div>
-  <h1>موجودہ اکاؤنٹس</h1>
-  <div class="card tablewrap" id="ulist">لوڈ ہو رہا ہے…</div>
-  <h1>ٹیسٹ ڈیٹا صاف کریں</h1>
-  <div class="card">
-    <p class="sub">یہ صرف تمام پیشگی/عملی اندراجات اور جمع شدہ مہینے حذف کرتا ہے — اکاؤنٹس (لاگ ان) محفوظ رہتے ہیں۔ یہ عمل واپس نہیں ہو سکتا۔</p>
-    <button class="btn-danger" style="border:1px solid var(--danger)" onclick="adminClear()">تمام ٹیسٹ ڈیٹا حذف کریں</button>
-    <div class="msg" id="clmsg"></div>
-  </div>`;
-  try{ designationsCache=await api('getDesignations'); }catch(e){ designationsCache=[]; }
-  document.getElementById('a_desig').innerHTML=designationOptions('');
+function renderAdmin(){
+  $('app').innerHTML=hero()+`<div class="wrap"><div class="card"><h2>نیا اکاؤنٹ بنائیں</h2>
+  <div class="row"><div class="grow"><label>پورا نام</label><input id="a_name"></div><div class="grow"><label>یوزر نیم</label><input id="a_user"></div></div>
+  <div class="row"><div class="grow"><label>پاس ورڈ</label><input id="a_pass"></div><div class="grow"><label>کردار</label>
+  <select id="a_role"><option value="zimedar">ذمہ دار</option><option value="nazim">ناظم</option></select></div></div>
+  <div style="margin-top:12px"><button class="btn" onclick="adminCreate()">اکاؤنٹ بنائیں</button></div><div class="msg" id="amsg"></div></div>
+  <div class="card"><h2>موجودہ اکاؤنٹس</h2><div id="ulist" class="tablewrap">لوڈ ہو رہا ہے…</div></div></div>`;
   loadUsers();
 }
 async function adminCreate(){
-  const name=document.getElementById('a_name').value.trim(), u=document.getElementById('a_user').value.trim(),
-        p=document.getElementById('a_pass').value, desig=document.getElementById('a_desig').value;
-  const msg=document.getElementById('amsg');
-  try{
-    const r=await api('adminCreateUser',name,u,p,desig);
-    if(!r.ok){ msg.textContent=r.error; return; }
-    ['a_name','a_user','a_pass'].forEach(id=>document.getElementById(id).value='');
-    msg.className='msg ok'; msg.textContent='اکاؤنٹ بن گیا۔'; loadUsers();
-  }catch(e){ msg.className='msg'; msg.textContent='خرابی: '+e.message; }
+  const r=await call('adminCreateUser',$('a_name').value.trim(),$('a_user').value.trim(),$('a_pass').value,$('a_role').value);
+  if(!r)return; if(!r.ok){$('amsg').textContent=r.error;return;}
+  ['a_name','a_user','a_pass'].forEach(i=>$(i).value='');$('amsg').textContent='';toast('اکاؤنٹ بن گیا ✓');loadUsers();
 }
 async function loadUsers(){
-  const box=document.getElementById('ulist');
-  try{
-    const list=await api('getAllUsers');
-    let html='<table><thead><tr><th>نام</th><th>یوزر نیم</th><th>عہدہ</th><th>حالت</th><th></th></tr></thead><tbody>';
-    list.forEach(v=>{
-      html+=`<tr id="urow_${esc(v.username)}"><td>${esc(v.name)}</td><td>${esc(v.username)}</td><td>${esc(v.designationLabel)}</td>
-      <td>${v.active?'<span class="tag" style="color:var(--accent-d)">فعال</span>':'<span class="tag locked">غیر فعال</span>'}</td>
-      <td>
-        <button class="btn-ghost btn-sm" onclick='adminEditUser(${JSON.stringify(v).replace(/'/g,"&apos;")})'>ترمیم</button>
-        <button class="btn-ghost btn-sm" onclick="adminReset('${v.username}')">پاس ورڈ ری سیٹ</button>
-        <button class="btn-warn btn-sm" onclick="adminToggle('${v.username}',${!v.active})">${v.active?'غیر فعال کریں':'فعال کریں'}</button>
-      </td></tr>`;
-    });
-    box.innerHTML=html+'</tbody></table>';
-  }catch(e){ box.innerHTML='<p class="msg">خرابی: '+esc(e.message)+'</p>'; }
-}
-function adminEditUser(v){
-  const row=document.getElementById('urow_'+v.username);
-  if(!row) return;
-  row.innerHTML=`<td colspan="5">
-    <div class="row" style="align-items:flex-end">
-      <div><label>پورا نام</label><input id="e_name" value="${esc(v.name)}"></div>
-      <div><label>عہدہ / کردار</label><select id="e_desig">${designationOptions(v.designation)}</select></div>
-      <div style="display:flex;gap:6px">
-        <button class="btn-primary btn-sm" onclick="adminSaveEdit('${esc(v.username)}')">محفوظ کریں</button>
-        <button class="btn-ghost btn-sm" onclick="loadUsers()">منسوخ</button>
-      </div>
-    </div>
-    <div class="msg" id="e_msg"></div>
-  </td>`;
-}
-async function adminSaveEdit(username){
-  const name=document.getElementById('e_name').value.trim(), desig=document.getElementById('e_desig').value;
-  try{ const r=await api('adminUpdateUser',username,name,desig); if(!r.ok){ document.getElementById('e_msg').textContent=r.error; return; } loadUsers(); }
-  catch(e){ document.getElementById('e_msg').textContent='خرابی: '+e.message; }
-}
-async function adminReset(username){
-  const np=prompt('نیا پاس ورڈ درج کریں (کم از کم 4 حروف):');
-  if(!np) return;
-  try{ const r=await api('adminResetPassword',username,np); if(!r.ok) alert(r.error); else alert('پاس ورڈ تبدیل ہو گیا۔'); }
-  catch(e){ alert('خرابی: '+e.message); }
-}
-async function adminToggle(username,active){
-  try{ const r=await api('adminSetActive',username,active); if(!r.ok) alert(r.error); else loadUsers(); }
-  catch(e){ alert('خرابی: '+e.message); }
-}
-async function adminClear(){
-  const msg=document.getElementById('clmsg');
-  if(!confirm('کیا آپ واقعی تمام پیشگی/عملی ڈیٹا حذف کرنا چاہتے ہیں؟ یہ واپس نہیں ہو سکتا۔')) return;
-  const typed=prompt('تصدیق کے لیے بڑے حروف میں DELETE لکھیں:');
-  if(typed===null) return;
-  try{
-    const r=await api('adminClearAllData',typed.trim());
-    if(!r.ok){ msg.className='msg'; msg.textContent=r.error; return; }
-    msg.className='msg ok'; msg.textContent='تمام ٹیسٹ ڈیٹا حذف ہو گیا۔';
-  }catch(e){ msg.className='msg'; msg.textContent='خرابی: '+e.message; }
+  const l=await call('getAllUsers'); if(!l)return;
+  $('ulist').innerHTML='<table class="rt" style="min-width:0"><thead><tr><th class="g0">نام</th><th class="g0">یوزر نیم</th><th class="g0">کردار</th></tr></thead><tbody>'+
+  l.map(v=>`<tr><td>${esc(v.name)}</td><td>${esc(v.username)}</td><td>${v.role==='admin'?'ایڈمن':v.role==='nazim'?'ناظم':'ذمہ دار'}</td></tr>`).join('')+'</tbody></table>';
 }
 
-/* =================== ZIMEDAR =================== */
-let zFilterMonth='';
-async function renderZimedar(){
-  zFilterMonth = zFilterMonth || curMonth();
-  const isEditP=editMode&&editMode.mode==='paishgi', isEditA=editMode&&editMode.mode==='amli';
-  const d=editMode?editMode.data:{};
-  app.innerHTML=topbar()+`
-  <h1>پیشگی جدول</h1>
-  <div class="card">
-    <p class="sub">آئندہ تاریخ کے لیے مقام و پروگرام پہلے سے لکھیں۔ محفوظ ہونے پر یہ "ڈرافٹ" رہے گا، نیچے سے پورے مہینے کی پیشگی ایک ساتھ جمع کروائیں۔</p>
-    <div class="row"><div><label>تاریخ</label><input id="p_date" type="date" value="${esc(isEditP?d.Date:'')}" ${isEditP?'disabled':'onchange="onPaishgiDateChange()"'}></div></div>
-    <label>مقام (پیشگی)</label><input id="p_mp" value="${esc(isEditP?d.MuqamPaishgi:'')}">
-    <label>پیشگی جدول</label><textarea id="p_pj">${esc(isEditP?d.PaishgiJadwal:'')}</textarea>
-    <div style="margin-top:10px">
-      <button class="btn-primary" onclick="saveP()">${isEditP?'محفوظ کریں':'شامل کریں'}</button>
-      ${isEditP?'<button class="btn-ghost" onclick="editMode=null;renderZimedar()">منسوخ</button>':''}
-    </div>
-    <div class="msg" id="pmsg"></div>
-    <div class="row" style="margin-top:14px;align-items:flex-end">
-      <div><label>مہینہ</label><input id="p_submonth" type="month" value="${curMonth()}"></div>
-      <div><button class="btn-warn" onclick="submitPaishgiMonth()">اس مہینے کی پوری پیشگی جمع کروائیں</button></div>
-    </div>
-    <div class="msg" id="psmsg"></div>
-  </div>
-
-  <h1>روزانہ عملی اندراج</h1>
-  <div class="card">
-    <p class="sub">جو کام آج فی الواقع ہوا وہ یہاں لکھیں — یہ روزانہ اپڈیٹ ہوتا رہے، ناظم کو فوری نظر آتا ہے۔</p>
-    <div class="row"><div><label>تاریخ</label><input id="a_date" type="date" value="${esc(isEditA?d.Date:today())}" ${isEditA?'disabled':'onchange="onAmliDateChange()"'}></div></div>
-    <label>مقام (عملی)</label><input id="a_ma" value="${esc(isEditA?d.MuqamAmli:'')}">
-    <label>عملی جدول</label><textarea id="a_aj">${esc(isEditA?d.AmliJadwal:'')}</textarea>
-    <div style="margin-top:10px">
-      <button class="btn-primary" onclick="saveA()">محفوظ کریں</button>
-      ${isEditA?'<button class="btn-ghost" onclick="editMode=null;renderZimedar()">منسوخ</button>':''}
-    </div>
-    <div class="msg" id="amsg2"></div>
-  </div>
-
-  <h1>مہینہ مکمل جمع کروائیں</h1>
-  <div class="card">
-    <p class="sub">پیشگی اور عملی جدول مکمل ہونے کے بعد پورا مہینہ حتمی طور پر جمع کروائیں — اس کے بعد اس مہینے میں کوئی تبدیلی نہیں ہو سکے گی۔</p>
-    <div class="row"><input id="m_pick" type="month" value="${curMonth()}"><button class="btn-primary" onclick="submitMonth()">مہینہ حتمی جمع کروائیں</button></div>
-    <div class="msg" id="mmsg"></div>
-    <div id="submittedMonths"></div>
-  </div>
-
-  <h1>میری فہرست</h1>
-  <div class="card">
-    <div class="row" style="align-items:flex-end">
-      <div><label>مہینہ منتخب کریں</label><input id="z_listmonth" type="month" value="${esc(zFilterMonth)}" onchange="zFilterMonth=this.value;loadMyEntries()"></div>
-      <div style="display:flex;gap:8px;align-items:flex-end">
-        <button class="btn-outline" onclick="previewMine()">پیش منظر دیکھیں</button>
-        <button class="btn-outline" onclick="exportMine('excel')">Excel ڈاؤن لوڈ</button>
-        <button class="btn-outline" onclick="exportMine('print')">پرنٹ / PDF</button>
-      </div>
-    </div>
-  </div>
-  <div class="card tablewrap" id="mylist">لوڈ ہو رہا ہے…</div>`;
-  loadMyEntries(); loadMySubmittedMonths();
-  if(!isEditA) onAmliDateChange();
+/* ===== ZIMEDAR ===== */
+function renderZimedar(){
+  $('app').innerHTML=hero()+`<div class="wrap"><div class="tabs noprint" id="ztabs"></div><div id="zbody"></div></div>`;
+  loadZ();
 }
-/** اسی تاریخ کی پہلے سے موجود پیشگی دکھاتا ہے تاکہ ذمہ دار بار بار خالی سے شروع نہ کرے */
-async function onPaishgiDateChange(){
-  const date=document.getElementById('p_date').value;
-  const msg=document.getElementById('pmsg');
-  if(!date){ return; }
-  try{
-    const list=await api('getMyEntries');
-    const existing=list.find(v=>v.Date===date);
-    document.getElementById('p_mp').value = existing ? (existing.MuqamPaishgi||'') : '';
-    document.getElementById('p_pj').value = existing ? (existing.PaishgiJadwal||'') : '';
-    if(existing && existing.PaishgiStatus!=='draft'){ msg.className='msg'; msg.textContent='یہ پیشگی جمع/لاک ہو چکی، تبدیلی کے لیے ناظم سے رابطہ کریں۔'; }
-    else if(existing){ msg.className='msg ok'; msg.textContent='اس تاریخ کی پہلے سے موجود پیشگی نیچے دکھائی گئی ہے — تبدیل کر کے دوبارہ محفوظ کریں۔'; }
-    else { msg.className='msg'; msg.textContent=''; }
-  }catch(e){}
+function drawZTabs(){
+  $('ztabs').innerHTML=`<button class="tab tp ${zTab==='p'?'on':''}" onclick="zGo('p')">📝 پیشگی اندراج</button>
+  <button class="tab ta ${zTab==='a'?'on':''}" onclick="zGo('a')">✅ عملی اندراج</button>
+  <button class="tab tr ${zTab==='r'?'on':''}" onclick="zGo('r')">📊 رپورٹ</button>`;
 }
-/** اسی تاریخ کا پہلے سے موجود عملی جدول دکھاتا ہے */
-async function onAmliDateChange(){
-  const dateEl=document.getElementById('a_date'); if(!dateEl) return;
-  const date=dateEl.value, msg=document.getElementById('amsg2');
-  if(!date){ return; }
-  try{
-    const list=await api('getMyEntries');
-    const existing=list.find(v=>v.Date===date);
-    document.getElementById('a_ma').value = existing ? (existing.MuqamAmli||'') : '';
-    document.getElementById('a_aj').value = existing ? (existing.AmliJadwal||'') : '';
-    if(msg){ msg.className = existing ? 'msg ok' : 'msg'; msg.textContent = existing ? 'اس تاریخ کا پہلے سے موجود عملی جدول نیچے دکھایا گیا ہے۔' : ''; }
-  }catch(e){}
+const hasDirty=()=>Object.keys(dirty).length>0;
+async function zGo(t){ if(hasDirty()&&!(await askConfirm('غیر محفوظ تبدیلیاں ضائع ہو جائیں گی۔ جاری رکھیں؟')))return; zTab=t;dirty={};drawZ(); }
+async function zSetMonth(m){ if(hasDirty()&&!(await askConfirm('غیر محفوظ تبدیلیاں ضائع ہو جائیں گی۔ جاری رکھیں؟'))){$('mp').value=selMonth;return;} selMonth=m;loadZ(); }
+async function loadZ(){
+  drawZTabs();$('zbody').innerHTML='<div class="card">لوڈ ہو رہا ہے…</div>';
+  const r=await call('getMonthData',me.username,selMonth); if(!r)return; md=r;dirty={};drawZ();
 }
-/** پیشگی اور عملی جدول ایک ساتھ، پرنٹ جیسی شکل میں پیش منظر دکھاتا ہے */
-async function previewMine(){
-  try{
-    const list=(await api('getMyEntries')).filter(v=>v.Date.slice(0,7)===zFilterMonth);
-    if(!list.length){ alert('اس مہینے کوئی ڈیٹا نہیں۔'); return; }
-    const meta={ title: ORG_NAME, subtitle: 'ماہانہ جدول — پیش منظر', name: me.name, month: zFilterMonth };
-    showPreviewModal(reportDocHtml(list, meta, false, false));
-  }catch(e){ alert('خرابی: '+e.message); }
+function drawZ(){drawZTabs();if(zTab==='r')drawZReport();else drawEntry(zTab);}
+function ban(t,x){return `<div class="ban ${t}">${x}</div>`;}
+function banner(isP){
+  if(md.monthSubmitted)return ban('done','✔ یہ مہینہ مکمل جمع ہو چکا ہے — اب ترمیم ممکن نہیں۔ ضرورت ہو تو ناظم سے رابطہ کریں۔');
+  if(isP){
+    if(md.paishgiStatus==='submitted')return ban('warn','⏳ پیشگی ناظم کو جمع ہو چکی ہے، جائزے کے بعد لاک ہو گی۔ تبدیلی کیلئے ناظم سے رابطہ کریں۔');
+    if(md.paishgiStatus==='locked')return ban('lock','🔒 پیشگی لاک ہو چکی ہے۔ تبدیلی کیلئے ناظم سے رابطہ کریں۔');
+    return ban('info','✏️ ہر تاریخ کے سامنے پیشگی جدول درج کریں اور "محفوظ کریں" دبائیں۔ سب مکمل ہونے پر "پیشگی جمع کروائیں" دبائیں۔');
+  }
+  return ban('info','✅ ہر تاریخ کے سامنے اصل (عملی) جدول درج کر کے محفوظ کریں۔ اس تاریخ کی پیشگی حوالے کیلئے ساتھ دکھائی گئی ہے۔');
 }
-function showPreviewModal(html){
-  const old=document.getElementById('previewModal'); if(old) old.remove();
-  const back=document.createElement('div'); back.className='modal-back'; back.id='previewModal';
-  back.innerHTML=`<div class="modal-lg">
-    <div class="mlbar"><b>پیش منظر</b><button class="btn-ghost btn-sm" onclick="document.getElementById('previewModal').remove()">بند کریں</button></div>
-    <iframe id="previewFrame"></iframe>
-  </div>`;
-  document.body.appendChild(back);
-  document.getElementById('previewFrame').srcdoc=html;
+function drawEntry(mode){
+  const isP=mode==='p';
+  const editable=!md.monthSubmitted&&(!isP||md.paishgiStatus==='draft');
+  const n=daysIn(selMonth),today=todayStr();let filled=0,rows='';
+  for(let d=1;d<=n;d++){
+    const ds=dstr(selMonth,d),e=md.entries[ds]||{};
+    const mv=(isP?e.MuqamPaishgi:e.MuqamAmli)||'',jv=(isP?e.PaishgiJadwal:e.AmliJadwal)||'';
+    const st=(!isP&&e.Stats)||{};const hasSt=Object.keys(st).length>0;if(mv||jv||hasSt)filled++;
+    const wd=wdOf(ds);
+    const ref=(!isP&&(e.MuqamPaishgi||e.PaishgiJadwal))?`<div class="ref">📌 پیشگی: ${esc(e.MuqamPaishgi||'—')} — ${esc(e.PaishgiJadwal||'—')}</div>`:'';
+    rows+=`<div class="day ${(mv||jv||hasSt)?'filled':''} ${wd===5?'fri':''} ${ds===today?'today':''}" id="row_${d}">
+    <div class="dbadge"><div class="dnum">${d}</div><div class="dname">${DAYS[wd]}</div><div class="dfull">${ds}</div></div>
+    <div>${ref}<label>📍 مقام</label><input id="m_${d}" value="${esc(mv)}" ${editable?'':'disabled'} oninput="mark(${d})" placeholder="مقام درج کریں">
+    <label>🗒️ ${isP?'پیشگی':'عملی'} جدول</label><textarea id="j_${d}" rows="2" ${editable?'':'disabled'} oninput="mark(${d})" placeholder="جدول کی تفصیل">${esc(jv)}</textarea>${isP?'':statsGrid(d,st,editable)}</div>
+    <div class="dact">${editable?`<button class="btn sm" id="sv_${d}" disabled onclick="saveRow(${d})">💾 محفوظ</button>`:''}<span class="ok" id="ok_${d}">✓ محفوظ ہو گیا</span></div></div>`;
+  }
+  const cls=isP?'mode-p':'mode-a';
+  const bar=editable?`<div class="bar noprint"><div class="bar-in"><span id="dcount" class="badge b-draft">غیر محفوظ: 0</span>
+  <div class="row"><button class="btn" onclick="saveAll()">💾 سب محفوظ کریں</button>${isP?'<button class="btn warn" onclick="submitPaishgi()">📤 پیشگی ناظم کو جمع کروائیں</button>':''}</div></div></div>`:'';
+  $('zbody').innerHTML=`<div class="${cls}" style="--acc:var(${isP?'--p':'--a'});--accl:var(${isP?'--pl':'--al'})">
+  <div class="card">${monthBar('mp',selMonth,'zSetMonth')}<div class="chips">${isP?pBadge(md.paishgiStatus):''}${mBadge(md.monthSubmitted)}
+  <span class="badge b-info">${isP?'پیشگی':'عملی'} درج: ${filled} / ${n} دن</span></div></div>${banner(isP)}${rows}${bar}</div>`;
 }
-async function saveP(){
-  const date=document.getElementById('p_date').value, mp=document.getElementById('p_mp').value.trim(), pj=document.getElementById('p_pj').value.trim();
-  const msg=document.getElementById('pmsg');
-  if(!date){ msg.textContent='تاریخ درج کریں۔'; return; }
-  try{
-    const r = editMode ? await api('upsertPaishgi', editMode.data.Date, mp, pj) : await api('upsertPaishgi', date, mp, pj);
-    if(!r.ok){ msg.textContent=r.error; return; }
-    msg.className='msg ok'; msg.textContent='محفوظ ہو گیا۔'; editMode=null; renderZimedar();
-  }catch(e){ msg.className='msg'; msg.textContent='خرابی: '+e.message; }
+function mark(d){dirty[d]=true;$('row_'+d).classList.add('dirty');const b=$('sv_'+d);if(b)b.disabled=false;$('dcount').textContent='غیر محفوظ: '+Object.keys(dirty).length;}
+async function saveRow(d){await saveDays([d]);}
+async function saveAll(){const l=Object.keys(dirty).map(Number);if(!l.length){toast('کوئی نئی تبدیلی نہیں');return true;}return saveDays(l);}
+async function saveDays(list){
+  const isP=zTab==='p';
+  const items=list.map(d=>({date:dstr(selMonth,d),muqam:$('m_'+d).value.trim(),jadwal:$('j_'+d).value.trim(),stats:isP?undefined:collectStats(d)}));
+  const r=await call(isP?'savePaishgiBulk':'saveAmliBulk',me.username,me.name,items);
+  if(!r)return false; if(!r.ok){toast(r.error,'err');return false;}
+  items.forEach((it,i)=>{const d=list[i];const e=md.entries[it.date]||(md.entries[it.date]={});
+    if(isP){e.MuqamPaishgi=it.muqam;e.PaishgiJadwal=it.jadwal;}else{e.MuqamAmli=it.muqam;e.AmliJadwal=it.jadwal;e.Stats=it.stats||{};}
+    delete dirty[d];const row=$('row_'+d);row.classList.remove('dirty');row.classList.toggle('filled',!!(it.muqam||it.jadwal||(it.stats&&Object.keys(it.stats).length)));
+    const b=$('sv_'+d);if(b)b.disabled=true;const ok=$('ok_'+d);ok.classList.add('show');setTimeout(()=>ok.classList.remove('show'),1800);});
+  $('dcount').textContent='غیر محفوظ: '+Object.keys(dirty).length;toast('محفوظ ہو گیا ✓ ('+items.length+')');return true;
 }
-async function saveA(){
-  const date=document.getElementById('a_date').value, ma=document.getElementById('a_ma').value.trim(), aj=document.getElementById('a_aj').value.trim();
-  const msg=document.getElementById('amsg2');
-  if(!date){ msg.textContent='تاریخ درج کریں۔'; return; }
-  try{
-    const r = editMode ? await api('upsertAmli', editMode.data.Date, ma, aj) : await api('upsertAmli', date, ma, aj);
-    if(!r.ok){ msg.textContent=r.error; return; }
-    msg.className='msg ok'; msg.textContent='محفوظ ہو گیا۔'; editMode=null; renderZimedar();
-  }catch(e){ msg.className='msg'; msg.textContent='خرابی: '+e.message; }
+async function submitPaishgi(){
+  if(hasDirty()&&!(await saveAll()))return;
+  if(!(await askConfirm('پیشگی جمع کروانے کے بعد آپ خود تبدیلی نہیں کر سکیں گے (ناظم سے رابطہ کرنا ہو گا)۔ جمع کروائیں؟')))return;
+  const r=await call('submitPaishgiMonth',me.username,me.name,selMonth);
+  if(!r)return; if(!r.ok){toast(r.error,'err');return;}
+  md.paishgiStatus='submitted';toast('پیشگی ناظم کو جمع ہو گئی ✓');drawZ();
 }
-function startEditPaishgi(data){ editMode={mode:'paishgi',data}; renderZimedar(); window.scrollTo(0,0); }
-function startEditAmli(data){ editMode={mode:'amli',data}; renderZimedar(); window.scrollTo(0,0); }
-async function delEntry(id){ if(!confirm('یہ اندراج حذف کریں؟')) return; try{ const r=await api('deleteEntry',id); if(!r.ok) alert(r.error); else loadMyEntries(); }catch(e){ alert('خرابی: '+e.message); } }
-async function submitPaishgiMonth(){
-  const month=document.getElementById('p_submonth').value, msg=document.getElementById('psmsg');
-  if(!month){ msg.textContent='مہینہ منتخب کریں۔'; return; }
-  try{
-    const r=await api('submitPaishgiMonth',month);
-    if(!r.ok){ msg.className='msg'; msg.textContent=r.error; return; }
-    msg.className='msg ok'; msg.textContent=r.count+' اندراجات جمع کروا دیے گئے۔'; loadMyEntries();
-  }catch(e){ msg.className='msg'; msg.textContent='خرابی: '+e.message; }
+function drawZReport(){
+  const list=monthList(md.entries,selMonth);
+  const act=md.monthSubmitted?`<span class="badge b-done">✔ ${fmtTime(md.monthSubmittedAt)} کو جمع ہوا</span>`
+    :`<button class="btn" onclick="submitMonthFinal()">📥 مہینہ مکمل جمع کروائیں</button>`;
+  $('zbody').innerHTML=`<div class="card">${monthBar('mp',selMonth,'zSetMonth')}<div class="chips">${pBadge(md.paishgiStatus)}${mBadge(md.monthSubmitted)}${(()=>{let p=0,a=0;list.forEach(v=>{if(v.MuqamPaishgi||v.PaishgiJadwal)p++;if(v.MuqamAmli||v.AmliJadwal)a++;});return '<span class="badge b-info">📝 پیشگی: '+p+' / '+list.length+' دن</span><span class="badge b-info">✅ عملی: '+a+' / '+list.length+' دن</span>';})()}</div>
+  <div class="row noprint" style="margin-top:12px">${act}${exportBtns('z')}</div>
+  <p class="sub noprint" style="margin-top:8px">پیشگی اور عملی جدول مکمل ہونے کے بعد مہینہ جمع کروائیں۔ جمع کے بعد ترمیم بند ہو جاتی ہے اور ناظم کو "جمع شدہ" میں نظر آتا ہے۔</p></div>
+  <div class="card"><h2>${esc(me.name)} — ${monthLabel(selMonth)}</h2>${reportTable(list)}</div>${zSummaryHtml(list)}`;
 }
-async function submitMonth(){
-  const month=document.getElementById('m_pick').value, msg=document.getElementById('mmsg');
-  if(!month){ msg.textContent='مہینہ منتخب کریں۔'; return; }
-  if(!confirm('اس مہینے کے بعد کوئی تبدیلی ممکن نہیں ہوگی۔ جاری رکھیں؟')) return;
-  try{
-    const r=await api('submitMonth',month);
-    if(!r.ok){ msg.className='msg'; msg.textContent=r.error; return; }
-    msg.className='msg ok'; msg.textContent='مہینہ جمع ہو گیا۔'; loadMyEntries(); loadMySubmittedMonths();
-  }catch(e){ msg.className='msg'; msg.textContent='خرابی: '+e.message; }
-}
-async function loadMySubmittedMonths(){
-  const box=document.getElementById('submittedMonths');
-  try{
-    const months=(await api('getMySubmittedMonths')).sort().reverse();
-    box.innerHTML=months.length?'<p class="sub" style="margin-top:10px">جمع شدہ مہینے: '+months.map(m=>'<span class="tag final">'+esc(m)+'</span>').join(' ')+'</p>':'';
-  }catch(e){}
-}
-async function loadMyEntries(){
-  const box=document.getElementById('mylist');
-  box.innerHTML='لوڈ ہو رہا ہے…';
-  try{
-    const [list,lockedMonths]=await Promise.all([api('getMyEntries'),api('getMySubmittedMonths')]);
-    const lockedSet=new Set(lockedMonths);
-    const filtered = zFilterMonth ? list.filter(v=>v.Date.slice(0,7)===zFilterMonth) : list;
-    if(!filtered.length){ box.innerHTML='<p class="sub">اس مہینے کوئی اندراج نہیں۔</p>'; return; }
-    let html='<table><thead><tr><th>تاریخ</th><th>دن</th><th>مقام (پیشگی)</th><th>پیشگی جدول</th><th>حالت</th><th>مقام (عملی)</th><th>عملی جدول</th><th></th></tr></thead><tbody>';
-    filtered.forEach(v=>{
-      const mLocked=lockedSet.has(v.Date.slice(0,7));
-      const canEditP=v.PaishgiStatus==='draft'&&!mLocked, canEditA=!mLocked;
-      const dataStr=JSON.stringify(v).replace(/"/g,'&quot;');
-      html+=`<tr><td>${esc(v.Date)}</td><td>${esc(v.Din)}</td><td>${esc(v.MuqamPaishgi)}</td><td>${esc(v.PaishgiJadwal)}</td>
-      <td>${mLocked?'<span class="tag final">مہینہ جمع شدہ</span>':statusTag(v.PaishgiStatus)}</td>
-      <td>${esc(v.MuqamAmli)}</td><td>${esc(v.AmliJadwal)}</td><td>
-      ${canEditP?`<button class="btn-ghost btn-sm" onclick='startEditPaishgi(${dataStr})'>ترمیم پیشگی</button>
-      <button class="btn-danger btn-sm" onclick="delEntry('${v.ID}')">حذف</button>`:''}
-      ${canEditA?`<button class="btn-ghost btn-sm" onclick='startEditAmli(${dataStr})'>عملی اپڈیٹ</button>`:''}
-      ${!canEditP&&v.PaishgiStatus!=='draft'&&!mLocked?'<div class="hint">پیشگی میں تبدیلی کیلئے ناظم سے رابطہ کریں</div>':''}
-      </td></tr>`;
-    });
-    box.innerHTML=html+'</tbody></table>';
-  }catch(e){ box.innerHTML='<p class="msg">خرابی: '+esc(e.message)+'</p>'; }
-}
-async function exportMine(kind){
-  try{
-    const list=(await api('getMyEntries')).filter(v=>v.Date.slice(0,7)===zFilterMonth);
-    if(!list.length){ alert('اس مہینے کوئی ڈیٹا نہیں۔'); return; }
-    const meta={ title: ORG_NAME, subtitle: 'ماہانہ جدول', name: me.name, month: zFilterMonth };
-    if(kind==='excel') exportToExcel(list, meta, false); else printReport(list, meta, false);
-  }catch(e){ alert('خرابی: '+e.message); }
+async function submitMonthFinal(){
+  if(!(await askConfirm('مہینہ جمع کروانے کے بعد پیشگی اور عملی دونوں میں ترمیم بند ہو جائے گی۔ کیا جدول مکمل ہے؟')))return;
+  const r=await call('submitMonth',me.username,me.name,selMonth); if(!r)return;
+  md.monthSubmitted=true;md.monthSubmittedAt=Date.now();toast('مہینہ جمع ہو گیا ✓');drawZ();
 }
 
-/* =================== NAZIM =================== */
+/* ===== NAZIM ===== */
 async function renderNazim(){
-  app.innerHTML=topbar()+`
-  <div class="tabs">
-    <button class="${nazimTab==='sched'?'active':''}" onclick="nazimTab='sched';renderNazim()">ذمہ داران کے جدول</button>
-    <button class="${nazimTab==='pending'?'active':''}" onclick="nazimTab='pending';renderNazim()">پیشگی زیر جائزہ</button>
-    <button class="${nazimTab==='report'?'active':''}" onclick="nazimTab='report';renderNazim()">ماہانہ رپورٹ</button>
-    <button class="${nazimTab==='sub'?'active':''}" onclick="nazimTab='sub';renderNazim()">جمع شدہ مہینے</button>
-    <button class="${nazimTab==='overview'?'active':''}" onclick="nazimTab='overview';renderNazim()">خلاصہ</button>
-  </div>
-  <div id="nbody"></div>`;
-  if(nazimTab==='sched') renderNazimSched();
-  else if(nazimTab==='pending') renderNazimPending();
-  else if(nazimTab==='report') renderNazimReport();
-  else if(nazimTab==='sub') renderNazimSub();
-  else renderNazimOverview();
+  $('app').innerHTML=hero()+`<div class="wrap"><div class="tabs noprint" id="ntabs"></div><div id="nbody"></div></div>`;
+  drawNTabs();
+  if(!zList.length){const z=await call('getZimedars');zList=z||[];}
+  refreshPending();drawN();
 }
-async function renderNazimSched(){
-  const body=document.getElementById('nbody');
-  body.innerHTML=`<div class="card"><label>ذمہ دار منتخب کریں</label><select id="zsel" onchange="nazimZ=this.value;loadForZimedar(this.value)"><option>لوڈ ہو رہا ہے…</option></select></div>
-  <div class="card tablewrap" id="zlist"><p class="sub">اوپر سے ذمہ دار منتخب کریں۔</p></div>`;
-  const list=await api('getZimedars');
-  const sel=document.getElementById('zsel');
-  sel.innerHTML=list.length?'<option value="">-- منتخب کریں --</option>'+list.map(z=>`<option value="${esc(z.username)}">${esc(z.name)} (${esc(z.username)})</option>`).join(''):'<option value="">ابھی کوئی ذمہ دار نہیں</option>';
-  if(nazimZ){ sel.value=nazimZ; loadForZimedar(nazimZ); }
+function drawNTabs(){
+  $('ntabs').innerHTML=`<button class="tab tp ${nTab==='m'?'on':''}" onclick="nGo('m')">📌 خلاصہ</button>
+  <button class="tab ta ${nTab==='z'?'on':''}" onclick="nGo('z')">👤 ذمہ دار کا جدول</button>
+  <button class="tab tr ${nTab==='r'?'on':''}" onclick="nGo('r')">📊 ماہانہ رپورٹ</button>
+  <button class="tab tr ${nTab==='s'?'on':''}" onclick="nGo('s')">📥 جمع شدہ${pending?`<span class="dot">${pending}</span>`:''}</button>`;
 }
-async function loadForZimedar(username){
-  const box=document.getElementById('zlist');
-  if(!username){ box.innerHTML='<p class="sub">اوپر سے ذمہ دار منتخب کریں۔</p>'; return; }
-  box.innerHTML='لوڈ ہو رہا ہے…';
-  try{
-    const list=await api('getEntriesForZimedar',username);
-    if(!list.length){ box.innerHTML='<p class="sub">اس ذمہ دار کا ابھی کوئی اندراج نہیں۔</p>'; return; }
-    let html=`<div class="row" style="margin-bottom:10px"><button class="btn-outline" onclick='nazimExport("${username}")'>اس ذمہ دار کا ڈیٹا Export کریں</button></div>`;
-    html+='<table><thead><tr><th>تاریخ</th><th>دن</th><th>مقام (پیشگی)</th><th>پیشگی جدول</th><th>حالت</th><th>مقام (عملی)</th><th>عملی جدول</th><th></th></tr></thead><tbody>';
-    list.forEach(v=>{
-      const dataStr=JSON.stringify(v).replace(/"/g,'&quot;');
-      html+=`<tr><td>${esc(v.Date)}</td><td>${esc(v.Din)}</td><td>${esc(v.MuqamPaishgi)}</td><td>${esc(v.PaishgiJadwal)}</td>
-      <td>${statusTag(v.PaishgiStatus)}</td><td>${esc(v.MuqamAmli)}</td><td>${esc(v.AmliJadwal)}</td><td>
-      ${v.PaishgiStatus==='submitted'?`<button class="btn-primary btn-sm" onclick="nazimLock('${v.ID}')">لاک کریں</button>`:''}
-      ${v.PaishgiStatus!=='draft'?`<button class="btn-warn btn-sm" onclick="nazimUnlock('${v.ID}')">ذمہ دار کو حق واپس دیں</button>`:''}
-      <button class="btn-ghost btn-sm" onclick='nazimEdit(${dataStr})'>تدوین</button>
-      </td></tr>`;
-    });
-    box.innerHTML=html+'</tbody></table>';
-  }catch(e){ box.innerHTML='<p class="msg">خرابی: '+esc(e.message)+'</p>'; }
+async function refreshPending(){const l=await call('getPaishgiMonths');pending=(l||[]).filter(x=>x.Status==='submitted').length;drawNTabs();}
+function nGo(t){nTab=t;drawNTabs();drawN();}
+function drawN(){if(nTab==='m')drawNSummary();else if(nTab==='z')drawNZ();else if(nTab==='r')drawNRep();else drawNSub();}
+function zNameOf(u){const z=zList.find(x=>x.username===u);return z?z.name:u;}
+const nZName=()=>zNameOf(nZ);
+
+async function drawNZ(){
+  const opts='<option value="">-- ذمہ دار منتخب کریں --</option>'+zList.map(z=>`<option value="${esc(z.username)}" ${z.username===nZ?'selected':''}>${esc(z.name)} (${esc(z.username)})</option>`).join('');
+  $('nbody').innerHTML=`<div class="card"><div class="row"><div class="grow"><label>ذمہ دار</label><select id="nzsel" onchange="nZ=this.value;loadNZ()">${opts}</select></div>
+  <div>${monthBar('nmp',nMonth,'nSetMonth')}</div></div></div><div id="nzbody"></div>`;
+  if(nZ)loadNZ();else $('nzbody').innerHTML='<div class="card sub">اوپر سے ذمہ دار منتخب کریں۔</div>';
 }
-async function nazimExport(username){
-  try{
-    const list=await api('getEntriesForZimedar',username);
-    if(!list.length){ alert('ڈیٹا موجود نہیں۔'); return; }
-    const name=list[0].Name;
-    const month = list[0].Date.slice(0,7);
-    const meta={ title: ORG_NAME, subtitle:'ذمہ دار رپورٹ', name, month };
-    printReport(list, meta, false);
-  }catch(e){ alert('خرابی: '+e.message); }
+function nSetMonth(m){nMonth=m;drawNZ();}
+async function loadNZ(){
+  if(!nZ){$('nzbody').innerHTML='';return;}
+  $('nzbody').innerHTML='<div class="card">لوڈ ہو رہا ہے…</div>';
+  const r=await call('getMonthData',nZ,nMonth);if(!r)return;nMd=r;drawNZBody();
 }
-async function nazimLock(id){ try{ await api('nazimLock',id); loadForZimedar(nazimZ); }catch(e){ alert('خرابی: '+e.message); } }
-async function nazimUnlock(id){ try{ await api('nazimUnlock',id); loadForZimedar(nazimZ); }catch(e){ alert('خرابی: '+e.message); } }
-function nazimEdit(data){
-  const box=document.getElementById('zlist');
-  box.innerHTML=`<div class="card"><h1 style="margin-top:0">تدوین: ${esc(data.Date)}</h1>
-  <label>مقام (پیشگی)</label><input id="n_mp" value="${esc(data.MuqamPaishgi||'')}">
-  <label>پیشگی جدول</label><textarea id="n_pj">${esc(data.PaishgiJadwal||'')}</textarea>
-  <label>مقام (عملی)</label><input id="n_ma" value="${esc(data.MuqamAmli||'')}">
-  <label>عملی جدول</label><textarea id="n_aj">${esc(data.AmliJadwal||'')}</textarea>
-  <div style="margin-top:10px"><button class="btn-primary" onclick="nazimSaveEdit('${data.ID}')">محفوظ کریں</button>
-  <button class="btn-ghost" onclick="loadForZimedar(nazimZ)">منسوخ</button></div><div class="msg" id="nemsg"></div></div>`;
+function drawNZBody(){
+  const ps=nMd.paishgiStatus;
+  let acts='';
+  if(ps==='submitted')acts+=`<button class="btn" onclick="nazimSet('locked')">🔒 پیشگی لاک کریں</button>`;
+  if(ps==='submitted'||ps==='locked')acts+=`<button class="btn warn" onclick="nazimSet('draft')">↩️ ذمہ دار کو ترمیم کا حق واپس دیں</button>`;
+  if(nMd.monthSubmitted)acts+=`<button class="btn danger" onclick="nazimReopen()">🔓 مہینہ دوبارہ کھولیں</button>`;
+  const list=monthList(nMd.entries,nMonth);
+  $('nzbody').innerHTML=`<div class="card"><div class="chips" style="margin-top:0">${pBadge(ps)}${mBadge(nMd.monthSubmitted)}</div>
+  <div class="row" style="margin-top:12px">${acts}${exportBtns('nz')}</div></div>
+  <div class="card"><h2>${esc(nZName())} — ${monthLabel(nMonth)}</h2>${reportTable(list,{actions:v=>`<button class="btn sm ghost" onclick="openEdit('${v.Date}')">✏️ تدوین</button>`})}</div>${zSummaryHtml(list)}`;
 }
-async function nazimSaveEdit(id){
-  const mp=document.getElementById('n_mp').value.trim(), pj=document.getElementById('n_pj').value.trim(),
-        ma=document.getElementById('n_ma').value.trim(), aj=document.getElementById('n_aj').value.trim();
-  try{ await api('nazimEditEntry',id,mp,pj,ma,aj); loadForZimedar(nazimZ); }
-  catch(e){ document.getElementById('nemsg').textContent='خرابی: '+e.message; }
+async function nazimSet(status){
+  if(!(await askConfirm(status==='locked'?'پیشگی لاک کر دی جائے؟ ذمہ دار خود تبدیلی نہیں کر سکے گا۔':'ذمہ دار کو پیشگی میں دوبارہ ترمیم کا حق دیا جائے؟')))return;
+  const r=await call('nazimSetPaishgi',nZ,nZName(),nMonth,status);if(!r)return;
+  nMd.paishgiStatus=status;toast(status==='locked'?'پیشگی لاک ہو گئی 🔒':'ذمہ دار کو حق واپس دے دیا گیا');drawNZBody();refreshPending();
 }
-let pendingFilterUser='';
-async function renderNazimPending(){
-  const body=document.getElementById('nbody');
-  body.innerHTML=`<div class="card"><label>فلٹر: ذمہ دار</label><select id="pend_filter" onchange="pendingFilterUser=this.value;renderPendingList()"><option value="">لوڈ ہو رہا ہے…</option></select></div>
-  <div id="pendBody">لوڈ ہو رہا ہے…</div>`;
-  try{
-    const list=await api('getPendingPaishgiReview');
-    pendingAllList=list;
-    const sel=document.getElementById('pend_filter');
-    const seen={}; const opts=[];
-    list.forEach(v=>{ if(!seen[v.Username]){ seen[v.Username]=true; opts.push({username:v.Username,name:v.Name}); } });
-    opts.sort((a,b)=>a.name>b.name?1:(a.name<b.name?-1:0));
-    if(!opts.some(o=>o.username===pendingFilterUser)) pendingFilterUser='';
-    sel.innerHTML='<option value="">-- سب ذمہ داران --</option>'+opts.map(o=>`<option value="${esc(o.username)}">${esc(o.name)}</option>`).join('');
-    sel.value=pendingFilterUser;
-    renderPendingList();
-  }catch(e){ document.getElementById('pendBody').innerHTML='<p class="msg">خرابی: '+esc(e.message)+'</p>'; }
+async function nazimReopen(){
+  if(!(await askConfirm('مہینہ دوبارہ کھول دیا جائے؟')))return;
+  const r=await call('reopenMonth',nMd.monthSubId);if(!r||!r.ok)return;nMd.monthSubmitted=false;toast('مہینہ کھول دیا گیا');drawNZBody();
 }
-let pendingAllList=[];
-function renderPendingList(){
-  const box=document.getElementById('pendBody');
-  const list = pendingFilterUser ? pendingAllList.filter(v=>v.Username===pendingFilterUser) : pendingAllList;
-  if(!list.length){ box.innerHTML='<div class="card"><p class="sub">فی الحال کوئی پیشگی جائزے کے منتظر نہیں۔</p></div>'; return; }
-  // ذمہ دار کے حساب سے گروپ کریں
-  const groups={};
-  list.forEach(v=>{ (groups[v.Username]=groups[v.Username]||{name:v.Name,rows:[]}).rows.push(v); });
-  let html='';
-  Object.keys(groups).forEach(username=>{
-    const g=groups[username];
-    html+=`<div class="card">
-      <div class="row" style="justify-content:space-between;align-items:center;flex-wrap:wrap">
-        <div><b>${esc(g.name)}</b> <span class="tag submitted">${g.rows.length} اندراجات زیر جائزہ</span></div>
-        <button class="btn-primary btn-sm" onclick="lockAllPending('${username}')">سب لاک کریں (${g.rows.length})</button>
-      </div>
-      <div class="tablewrap"><table><thead><tr><th>تاریخ</th><th>دن</th><th>مقام (پیشگی)</th><th>پیشگی جدول</th><th></th></tr></thead><tbody>`;
-    g.rows.forEach(v=>{ html+=`<tr><td>${esc(v.Date)}</td><td>${esc(v.Din)}</td><td>${esc(v.MuqamPaishgi)}</td><td>${esc(v.PaishgiJadwal)}</td>
-      <td><button class="btn-primary btn-sm" onclick="pendingLock('${v.ID}')">لاک کریں</button></td></tr>`; });
-    html+='</tbody></table></div></div>';
-  });
-  box.innerHTML=html;
+function openEdit(ds){
+  const e=nMd.entries[ds]||{};
+  showModal(`<h2>✏️ تدوین — ${ds} (${DAYS[wdOf(ds)]})</h2>
+  <label>مقام (پیشگی)</label><input id="x_mp" value="${esc(e.MuqamPaishgi||'')}">
+  <label>پیشگی جدول</label><textarea id="x_pj">${esc(e.PaishgiJadwal||'')}</textarea>
+  <label>مقام (عملی)</label><input id="x_ma" value="${esc(e.MuqamAmli||'')}">
+  <label>عملی جدول</label><textarea id="x_aj">${esc(e.AmliJadwal||'')}</textarea>
+  ${statsGrid('x',e.Stats||{},true)}
+  <div class="row" style="justify-content:flex-end;margin-top:12px"><button class="btn ghost" onclick="closeModal()">منسوخ</button><button class="btn" onclick="saveEdit('${ds}')">💾 محفوظ کریں</button></div>`);
 }
-async function pendingLock(id){ try{ await api('nazimLock',id); renderNazimPending(); }catch(e){ alert('خرابی: '+e.message); } }
-async function lockAllPending(username){
-  if(!confirm('اس ذمہ دار کی تمام زیر جائزہ اندراجات لاک کریں؟')) return;
-  try{ const r=await api('nazimLockAllPending',username); if(!r.ok){ alert(r.error); return; } renderNazimPending(); }
-  catch(e){ alert('خرابی: '+e.message); }
-}
-let reportFilterUser='';
-async function renderNazimReport(){
-  const body=document.getElementById('nbody');
-  body.innerHTML=`<div class="card"><div class="row" style="align-items:flex-end">
-  <div><label>مہینہ منتخب کریں</label><input id="r_month" type="month" value="${nazimReportMonth||curMonth()}"></div>
-  <div><label>فلٹر: ذمہ دار</label><select id="r_zimedar" onchange="reportFilterUser=this.value;renderReportTable()"><option value="">-- سب ذمہ داران --</option></select></div>
-  </div>
-  <div class="row" style="margin-top:8px">
-  <button class="btn-primary" onclick="loadReport()">دکھائیں</button>
-  <button class="btn-outline" onclick="reportExport('excel')">Excel ڈاؤن لوڈ</button>
-  <button class="btn-outline" onclick="reportExport('print')">پرنٹ / PDF</button>
-  </div></div>
-  <div class="card tablewrap" id="rlist"></div>`;
-  if(nazimReportMonth) loadReport();
-}
-let currentReportList=[];
-function getFilteredReport(){
-  return reportFilterUser ? currentReportList.filter(v=>v.Username===reportFilterUser) : currentReportList;
-}
-async function loadReport(){
-  nazimReportMonth=document.getElementById('r_month').value;
-  const box=document.getElementById('rlist');
-  box.innerHTML='لوڈ ہو رہا ہے…';
-  try{
-    currentReportList=await api('getReportByMonth',nazimReportMonth);
-    populateReportFilter();
-    renderReportTable();
-  }catch(e){ box.innerHTML='<p class="msg">خرابی: '+esc(e.message)+'</p>'; }
-}
-/** فلٹر ڈراپ ڈاؤن ہمیشہ لوڈ شدہ ڈیٹا ہی سے بنتا ہے — اس لیے Users شیٹ کے یوزر نیم سے
- *  کوئی فرق پڑنے کی صورت میں بھی فلٹر اور اصل ڈیٹا میں مِس میچ نہیں ہو سکتا۔ */
-function populateReportFilter(){
-  const sel=document.getElementById('r_zimedar'); if(!sel) return;
-  const seen={}; const opts=[];
-  currentReportList.forEach(v=>{ if(!seen[v.Username]){ seen[v.Username]=true; opts.push({username:v.Username,name:v.Name}); } });
-  opts.sort((a,b)=>a.name>b.name?1:(a.name<b.name?-1:0));
-  if(!opts.some(o=>o.username===reportFilterUser)) reportFilterUser='';
-  sel.innerHTML='<option value="">-- سب ذمہ داران --</option>'+opts.map(o=>`<option value="${esc(o.username)}">${esc(o.name)}</option>`).join('');
-  sel.value=reportFilterUser;
-}
-function renderReportTable(){
-  const box=document.getElementById('rlist');
-  const list=getFilteredReport();
-  if(!list.length){ box.innerHTML='<p class="sub">اس مہینے (یا فلٹر کے مطابق) کوئی ڈیٹا نہیں۔</p>'; return; }
-  let html='<table><thead><tr><th>ذمہ دار</th><th>تاریخ</th><th>دن</th><th>مقام (پیشگی)</th><th>پیشگی جدول</th><th>حالت</th><th>مقام (عملی)</th><th>عملی جدول</th></tr></thead><tbody>';
-  list.forEach(v=>{ html+=`<tr><td>${esc(v.Name)}</td><td>${esc(v.Date)}</td><td>${esc(v.Din)}</td><td>${esc(v.MuqamPaishgi)}</td><td>${esc(v.PaishgiJadwal)}</td><td>${statusTag(v.PaishgiStatus)}</td><td>${esc(v.MuqamAmli)}</td><td>${esc(v.AmliJadwal)}</td></tr>`; });
-  box.innerHTML=html+'</tbody></table>';
-}
-function reportExport(kind){
-  const list=getFilteredReport();
-  if(!list.length){ alert('پہلے "دکھائیں" پر کلک کریں یا فلٹر بدلیں۔'); return; }
-  const singleName = reportFilterUser ? list[0].Name : '';
-  const meta={ title: ORG_NAME, subtitle: singleName?'ذمہ دار رپورٹ':'ماہانہ رپورٹ — جملہ ذمہ داران', name: singleName, month: nazimReportMonth };
-  if(kind==='excel') exportToExcel(list, meta, !singleName); else printReport(list, meta, !singleName);
-}
-async function renderNazimSub(){
-  const body=document.getElementById('nbody');
-  body.innerHTML='<div class="card tablewrap" id="subs">لوڈ ہو رہا ہے…</div>';
-  try{
-    const list=await api('getAllSubmittedMonths');
-    const box=document.getElementById('subs');
-    if(!list.length){ box.innerHTML='<p class="sub">ابھی کوئی مہینہ حتمی جمع نہیں ہوا۔</p>'; return; }
-    let html='<table><thead><tr><th>ذمہ دار</th><th>مہینہ</th><th>جمع کرنے کا وقت</th><th></th></tr></thead><tbody>';
-    list.forEach(v=>{ html+=`<tr><td>${esc(v.Name)} (${esc(v.Username)})</td><td>${esc(monthLabel(v.Month))}</td><td>${esc(new Date(v.SubmittedAt).toLocaleString('ur-PK'))}</td><td>
-      <button class="btn-outline btn-sm" onclick="subExport('${esc(v.Username)}','${esc(v.Name)}','${esc(v.Month)}','excel')">Excel</button>
-      <button class="btn-outline btn-sm" onclick="subExport('${esc(v.Username)}','${esc(v.Name)}','${esc(v.Month)}','print')">PDF</button>
-      <button class="btn-warn btn-sm" onclick="reopenMonth('${v.ID}')">دوبارہ کھولیں</button></td></tr>`; });
-    box.innerHTML=html+'</tbody></table>';
-  }catch(e){ document.getElementById('subs').innerHTML='<p class="msg">خرابی: '+esc(e.message)+'</p>'; }
-}
-async function subExport(username,name,month,kind){
-  try{
-    const list=(await api('getEntriesForZimedar',username)).filter(v=>v.Date.slice(0,7)===month);
-    if(!list.length){ alert('ڈیٹا موجود نہیں۔'); return; }
-    const meta={ title: ORG_NAME, subtitle:'ماہانہ جدول (جمع شدہ)', name, month };
-    if(kind==='excel') exportToExcel(list, meta, false); else printReport(list, meta, false);
-  }catch(e){ alert('خرابی: '+e.message); }
-}
-async function reopenMonth(id){ if(!confirm('یہ مہینہ دوبارہ کھولیں؟ ذمہ دار دوبارہ تبدیلی کر سکے گا۔')) return; try{ await api('reopenMonth',id); renderNazimSub(); }catch(e){ alert('خرابی: '+e.message); } }
-async function renderNazimOverview(){
-  const body=document.getElementById('nbody');
-  body.innerHTML=`<div class="card"><label>مہینہ منتخب کریں</label><div class="row"><input id="o_month" type="month" value="${nazimOverviewMonth||curMonth()}"><button class="btn-primary" onclick="loadOverview()">دکھائیں</button></div></div>
-  <div class="card tablewrap" id="ovlist"></div>`;
-  loadOverview();
-}
-async function loadOverview(){
-  nazimOverviewMonth=document.getElementById('o_month').value;
-  const box=document.getElementById('ovlist');
-  box.innerHTML='لوڈ ہو رہا ہے…';
-  try{
-    const list=await api('getMonthOverview',nazimOverviewMonth);
-    if(!list.length){ box.innerHTML='<p class="sub">کوئی ذمہ دار موجود نہیں۔</p>'; return; }
-    let html='<table><thead><tr><th>ذمہ دار</th><th>پیشگی کے دن</th><th>عملی کے دن</th><th>کل دن</th><th>مہینہ حتمی جمع</th></tr></thead><tbody>';
-    list.forEach(v=>{ html+=`<tr><td>${esc(v.name)}</td><td>${v.paishgiDays}</td><td>${v.amliDays}</td><td>${v.totalDays}</td><td>${v.monthFinalized?'<span class="tag final">جمع شدہ</span>':'<span class="tag">باقی</span>'}</td></tr>`; });
-    box.innerHTML=html+'</tbody></table>';
-  }catch(e){ box.innerHTML='<p class="msg">خرابی: '+esc(e.message)+'</p>'; }
+async function saveEdit(ds){
+  const v=id=>$(id).value.trim(),x={MuqamPaishgi:v('x_mp'),PaishgiJadwal:v('x_pj'),MuqamAmli:v('x_ma'),AmliJadwal:v('x_aj'),Stats:collectStats('x')};
+  const r=await call('nazimSaveDay',nZ,nZName(),ds,x.MuqamPaishgi,x.PaishgiJadwal,x.MuqamAmli,x.AmliJadwal,JSON.stringify(x.Stats));
+  if(!r||!r.ok)return;nMd.entries[ds]=x;closeModal();toast('محفوظ ہو گیا ✓');drawNZBody();
 }
 
-/* =================== Excel / PDF Export (A4، Jameel Noori Nastaleeq) =================== */
-const URDU_MONTHS=['جنوری','فروری','مارچ','اپریل','مئی','جون','جولائی','اگست','ستمبر','اکتوبر','نومبر','دسمبر'];
-const EN_MONTHS_SHORT=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-/** 'YYYY-MM' کو پڑھنے کے قابل شکل میں بدلتا ہے، مثلاً "ستمبر 2026 — Sep'26" */
-function monthLabel(m){
-  if(!m) return '';
-  const parts=String(m).split('-'); if(parts.length<2) return m;
-  const yyyy=parts[0], mm=parseInt(parts[1],10);
-  if(!mm||mm<1||mm>12) return m;
-  return URDU_MONTHS[mm-1]+' '+yyyy+' — '+EN_MONTHS_SHORT[mm-1]+"'"+yyyy.slice(2);
+function nRepMonth(m){nMonth=m;drawNRep();}
+function nRepZ(v){repFilterZ=v;renderNRepBody();}
+async function drawNRep(){
+  const opts='<option value="">🌐 تمام ذمہ داران</option>'+zList.map(z=>`<option value="${esc(z.username)}" ${z.username===repFilterZ?'selected':''}>${esc(z.name)}</option>`).join('');
+  $('nbody').innerHTML=`<div class="card">${monthBar('rmp',nMonth,'nRepMonth')}
+  <div class="row filtbar" style="margin-top:10px"><div class="grow"><label>👤 ذمہ دار فلٹر</label><select id="repzsel" onchange="nRepZ(this.value)">${opts}</select></div></div>
+  <div class="row noprint" style="margin-top:10px">${exportBtns('nrep')}</div></div>
+  <div class="card" id="rbody">لوڈ ہو رہا ہے…</div>`;
+  const r=await call('getReportByMonth',nMonth);if(!r)return;lastRep=r;renderNRepBody();
 }
-/** رپورٹ سے پہلے فہرست کو تاریخ کے لحاظ سے ترتیب دیتا ہے (پہلی تاریخ سب سے اوپر) */
-function sortForReport(list, includeName){
-  const copy=list.slice();
-  copy.sort(function(a,b){
-    if(includeName){
-      if(a.Name>b.Name) return 1;
-      if(a.Name<b.Name) return -1;
-    }
-    return a.Date<b.Date?-1:(a.Date>b.Date?1:0);
+function renderNRepBody(){
+  if(!lastRep)return;
+  const rows=repFilterZ?lastRep.rows.filter(v=>v.Username===repFilterZ):lastRep.rows;
+  const box=$('rbody');if(!box)return;
+  if(!rows.length){box.innerHTML='<p class="sub">اس مہینے کا کوئی ڈیٹا نہیں۔</p>';return;}
+  const title=repFilterZ?zNameOf(repFilterZ):'تمام ذمہ داران';
+  box.innerHTML=`<h2>${esc(title)} — ${monthLabel(nMonth)}</h2>`+reportTable(rows,{group:!repFilterZ,badges:u=>pBadge(lastRep.paishgi[u]||'draft')+' '+mBadge(!!lastRep.subs[u])});
+}
+async function drawNSub(){
+  const opts='<option value="">🌐 تمام ذمہ داران</option>'+zList.map(z=>`<option value="${esc(z.username)}" ${z.username===subFilterZ?'selected':''}>${esc(z.name)}</option>`).join('');
+  $('nbody').innerHTML=`<div class="card filtbar"><label>👤 ذمہ دار فلٹر</label><select id="subzsel" onchange="subFilterZ=this.value;renderNSubBody()">${opts}</select></div><div id="subbody"><div class="card">لوڈ ہو رہا ہے…</div></div>`;
+  const [ps,ms]=await Promise.all([call('getPaishgiMonths'),call('getAllSubmittedMonths')]);
+  if(!ps||!ms)return;subPs=ps;subMs=ms;
+  pending=ps.filter(x=>x.Status==='submitted').length;drawNTabs();
+  renderNSubBody();
+}
+function renderNSubBody(){
+  const box=$('subbody');if(!box)return;
+  const ps=subFilterZ?subPs.filter(x=>x.Username===subFilterZ):subPs;
+  const ms=subFilterZ?subMs.filter(x=>x.Username===subFilterZ):subMs;
+  const go=(u,m)=>`<button class="btn sm ghost" onclick="nReview('${esc(u)}','${m}')">👁️ دیکھیں</button>`;
+  const t1=ps.length?'<div class="tablewrap"><table class="rt" style="min-width:0"><thead><tr><th class="g0">ذمہ دار</th><th class="g0">مہینہ</th><th class="g0">حالت</th><th class="g0">وقت</th><th class="g0"></th></tr></thead><tbody>'+
+    ps.map(v=>`<tr><td>${esc(v.Name)}</td><td>${esc(v.Month)}</td><td>${pBadge(v.Status)}</td><td>${fmtTime(v.UpdatedAt)}</td><td>${go(v.Username,v.Month)}</td></tr>`).join('')+'</tbody></table></div>':'<p class="sub">ابھی کوئی پیشگی جمع نہیں ہوئی۔</p>';
+  const t2=ms.length?'<div class="tablewrap"><table class="rt" style="min-width:0"><thead><tr><th class="g0">ذمہ دار</th><th class="g0">مہینہ</th><th class="g0">جمع کرنے کا وقت</th><th class="g0"></th></tr></thead><tbody>'+
+    ms.map(v=>`<tr><td>${esc(v.Name)}</td><td>${esc(v.Month)}</td><td>${fmtTime(v.SubmittedAt)}</td><td>${go(v.Username,v.Month)}
+    <button class="btn sm danger" onclick="reopenById('${v.ID}')">🔓 دوبارہ کھولیں</button></td></tr>`).join('')+'</tbody></table></div>':'<p class="sub">ابھی کوئی مہینہ مکمل جمع نہیں ہوا۔</p>';
+  box.innerHTML=`<div class="card"><h2>📝 پیشگی جدول (جائزہ / لاک)</h2>${t1}</div><div class="card"><h2>✅ مکمل جمع شدہ مہینے (پیشگی + عملی)</h2>${t2}</div>`;
+}
+function nReview(u,m){nZ=u;nMonth=m;nTab='z';drawNTabs();drawN();}
+async function reopenById(id){
+  if(!(await askConfirm('مہینہ دوبارہ کھول دیا جائے؟')))return;
+  const r=await call('reopenMonth',id);if(!r||!r.ok)return;toast('مہینہ کھول دیا گیا');drawNSub();
+}
+
+/* ===== خلاصہ (ناظم) ===== */
+let lastSum=null,lastRep=null;
+const ST={locked:'لاک',submitted:'جمع شدہ',draft:'ڈرافٹ'};
+function nSumMonth(m){nMonth=m;drawNSummary();}
+function sumToggle(u){if(sumSel===null)sumSel=new Set(zList.map(z=>z.username));sumSel.has(u)?sumSel.delete(u):sumSel.add(u);renderNSummaryBody();}
+function sumSelectAll(v){sumSel=v?new Set(zList.map(z=>z.username)):new Set();renderNSummaryBody();}
+function summaryTable(r,N,act){
+  const pc=(n,cls)=>`<div class="pcell"><b>${n}</b> / ${N} دن<div class="pbar ${cls}"><i style="width:${Math.min(100,Math.round(n*100/N))}%"></i></div></div>`;
+  const g=(x,k)=>(x.Totals||{})[k]||0,tt={};let tp=0;
+  METRICS.forEach(m=>{tt[m.k]=r.reduce((a,x)=>a+g(x,m.k),0);});
+  r.forEach(x=>{tp+=pendAudit(x.Totals||{});});
+  return `<div class="tablewrap"><table class="rt tight" style="min-width:960px"><thead><tr><th class="g0">ذمہ دار</th><th class="gp2">📝 پیشگی</th><th class="ga2">✅ عملی</th>${METRICS.map(m=>`<th class="g0">${m.l}</th>`).join('')}<th class="g0 pend">⏳ باقی آڈٹ</th>${act?'<th class="g0"></th>':''}</tr></thead><tbody>`+
+  r.map(x=>{const p=pendAudit(x.Totals||{});return `<tr><td><b>${esc(x.Name)}</b><br>${pBadge(x.PaishgiStatus)} ${mBadge(x.MonthSubmitted)}</td><td>${pc(x.PaishgiDays,'')}</td><td>${pc(x.AmliDays,'a')}</td>${METRICS.map(m=>`<td class="num">${g(x,m.k)}</td>`).join('')}<td class="num pend ${p?'pend-bad':'pend-ok'}"><b>${p}</b></td>${act?`<td><button class="btn sm ghost" onclick="nReview('${esc(x.Username)}','${nMonth}')">👁️ تفصیل</button></td>`:''}</tr>`;}).join('')+
+  `<tr class="tot"><td><b>میزان</b></td><td></td><td></td>${METRICS.map(m=>`<td class="num">${tt[m.k]}</td>`).join('')}<td class="num pend"><b>${tp}</b></td>${act?'<td></td>':''}</tr></tbody></table></div>`;
+}
+async function drawNSummary(){
+  $('nbody').innerHTML=`<div class="card">${monthBar('smp',nMonth,'nSumMonth')}
+  <div style="margin-top:12px"><label>👥 خلاصے کیلئے ذمہ داران منتخب کریں</label><div class="zchips" id="zchipbox"></div>
+  <div class="row" style="margin-top:8px"><button class="btn sm ghost" type="button" onclick="sumSelectAll(true)">☑️ سب منتخب</button><button class="btn sm ghost" type="button" onclick="sumSelectAll(false)">⬜ سب ختم</button></div></div>
+  <div class="row noprint" style="margin-top:12px">${exportBtns('nsum')}</div></div><div id="sbody" class="card">لوڈ ہو رہا ہے…</div>`;
+  const r=await call('getSummary',nMonth);if(!r)return;lastSum=r;renderNSummaryBody();
+}
+function renderNSummaryBody(){
+  const box=$('zchipbox');
+  if(box)box.innerHTML=zList.length?zList.map(z=>{const on=sumSel===null||sumSel.has(z.username);return `<button type="button" class="zchip ${on?'on':''}" onclick="sumToggle('${esc(z.username)}')">${esc(z.name)}</button>`;}).join(''):'<span class="sub">ابھی کوئی ذمہ دار رجسٹرڈ نہیں</span>';
+  if(!lastSum.length){$('sbody').innerHTML='<p class="sub">ابھی کوئی ذمہ دار رجسٹرڈ نہیں۔</p>';return;}
+  const r=sumSel===null?lastSum:lastSum.filter(x=>sumSel.has(x.Username));
+  const N=daysIn(nMonth);
+  if(!r.length){$('sbody').innerHTML='<p class="sub">کوئی ذمہ دار منتخب نہیں — اوپر سے کم از کم ایک منتخب کریں۔</p>';return;}
+  const c=f=>r.filter(f).length,tot=k=>r.reduce((a,x)=>a+((x.Totals||{})[k]||0),0);
+  $('sbody').innerHTML=`<h2>📌 خلاصہ — ${monthLabel(nMonth)}${sumSel!==null?' (منتخب: '+r.length+')':''}</h2><div class="stats">
+  <div class="stat s1"><b>${r.length}</b><span>${sumSel!==null?'منتخب ذمہ دار':'کل ذمہ دار'}</span></div><div class="stat s2"><b>${c(x=>x.PaishgiStatus==='submitted')}</b><span>پیشگی جائزے کے منتظر</span></div>
+  <div class="stat s3"><b>${c(x=>x.PaishgiStatus==='locked')}</b><span>پیشگی لاک</span></div><div class="stat s4"><b>${c(x=>x.MonthSubmitted)}</b><span>مہینہ مکمل جمع</span></div></div>
+  <div class="stats"><div class="stat s1"><b>${tot('boxOpen')}</b><span>کل باکس اوپن</span></div><div class="stat s4"><b>${tot('boxRasai')}</b><span>رسائی والے باکس</span></div><div class="stat s3"><b>${tot('boxGhair')}</b><span>غیر رسائی والے باکس</span></div><div class="stat s2"><b>${tot('dataOk')}</b><span>ڈیٹا درست</span></div><div class="stat" style="background:linear-gradient(135deg,#c2410c,#e0783b)"><b>${r.reduce((a,x)=>a+pendAudit(x.Totals||{}),0)}</b><span>کل باقی آڈٹ</span></div></div>`+summaryTable(r,N,true);
+}
+
+
+/* ===== اعداد و شمار کی اقسام (نئی قسم شامل کرنی ہو تو یہیں ایک سطر بڑھائیں) ===== */
+const GROUPS=[
+ {id:'open',t:'📦 باکس اوپن / رکھوائے',c:'#2f6f4f'},
+ {id:'rasai',t:'📮 باکس — رسائی و غیر رسائی',c:'#1f5f8b'},
+ {id:'mul',t:'🤝 ملاقاتیں',c:'#0f766e'},
+ {id:'data',t:'🗂️ خط و کتابت اور ڈیٹا',c:'#7c3aed'},
+ {id:'audit',t:'🔍 ذمہ داران آڈٹ',c:'#c2410c'}
+];
+const LAST_KEYS=['totalZ','auditDone'];  // یہ اعداد "میزان" کی بجائے مہینے کی آخری درج شدہ قدر کے طور پر لیے جاتے ہیں
+const METRICS=[
+ {k:'boxOpen',l:'باکس اوپن کروائے',g:'open'},{k:'boxRakhwai',l:'باکس رکھوائے',g:'open'},
+ {k:'boxTotal',l:'کل باکس',g:'rasai'},{k:'boxRasai',l:'رسائی والے باکس',g:'rasai'},{k:'boxGhair',l:'غیر رسائی والے باکس',g:'rasai'},
+ {k:'targetM',l:'ٹارگٹ ملاقاتیں',g:'mul'},{k:'infradiM',l:'انفرادی ملاقاتیں',g:'mul'},{k:'ijtemaiM',l:'اجتماعی ملاقاتیں',g:'mul'},
+ {k:'dataOk',l:'ڈیٹا درست کیا',g:'data'},{k:'shukriaM',l:'شکریہ مکتوب دیے',g:'data'},
+ {k:'totalZ',l:'کل ذمہ داران',g:'audit'},{k:'auditDone',l:'آڈٹ کیے',g:'audit'}
+];
+const pendAudit=t=>Math.max((t.totalZ||0)-(t.auditDone||0),0);
+function statsGrid(d,st,ed){
+  let h='<div class="sgrid">';
+  GROUPS.forEach(g=>{h+=`<div class="sgt">${g.t}</div>`;METRICS.filter(m=>m.g===g.id).forEach(m=>{
+    h+=`<div><label>${m.l}</label><input type="number" min="0" inputmode="numeric" id="s_${m.k}_${d}" value="${st[m.k]!=null?st[m.k]:''}" ${ed?'':'disabled'} oninput="sIn('${d}','${m.k}')"></div>`;});
+    if(g.id==='audit')h+=`<div class="pendbox" style="grid-column:1/-1"><span>⏳ باقی آڈٹ (خودکار حساب)</span><b id="pend_${d}">${pendAudit(st)}</b></div>`;});
+  return h+'</div>';
+}
+function sIn(d,k){
+  if(k==='boxGhair'){const g=$('s_boxGhair_'+d);if(g)g.dataset.man='1';}
+  if(k==='boxTotal'||k==='boxRasai'){const g=$('s_boxGhair_'+d),t=$('s_boxTotal_'+d).value,r=$('s_boxRasai_'+d).value;
+    if(g&&!g.dataset.man&&t!=='')g.value=Math.max((+t)-(+r||0),0);}
+  if(k==='totalZ'||k==='auditDone'){const p=$('pend_'+d),tz=+(($('s_totalZ_'+d)||{}).value||0),ad=+(($('s_auditDone_'+d)||{}).value||0);
+    if(p)p.textContent=Math.max(tz-ad,0);}
+  if(d!=='x')mark(+d);
+}
+function collectStats(d){const o={};METRICS.forEach(m=>{const el=$('s_'+m.k+'_'+d);const v=el?parseInt(el.value,10):NaN;if(v>0)o[m.k]=v;});return o;}
+const hasAmli=v=>!!(v.MuqamAmli||v.AmliJadwal||Object.keys(v.Stats||{}).length);
+function sumStats(list){const t={};list.forEach(v=>Object.keys(v.Stats||{}).forEach(k=>{if(LAST_KEYS.includes(k))return;t[k]=(t[k]||0)+v.Stats[k];}));return t;}
+function lastStats(list){const t={};list.forEach(v=>{LAST_KEYS.forEach(k=>{if(v.Stats&&v.Stats[k]!=null)t[k]=v.Stats[k];});});return t;}
+function combinedStats(list){return Object.assign({},sumStats(list),lastStats(list));}
+function figChips(v){const st=v.Stats||{};let c=METRICS.filter(m=>st[m.k]!=null).map(m=>`<span class="fc">${m.l}: <b>${st[m.k]}</b></span>`).join('');
+  if(st.totalZ!=null||st.auditDone!=null)c+=`<span class="fc">باقی آڈٹ: <b>${pendAudit(st)}</b></span>`;
+  return c?`<div class="figchips">${c}</div>`:'<span class="dash">—</span>';}
+function zSummaryHtml(list){
+  const T=combinedStats(list),N=list.length,aD=list.filter(hasAmli).length,pD=list.filter(v=>v.MuqamPaishgi||v.PaishgiJadwal).length;
+  const tot=T.boxTotal||0,ras=T.boxRasai||0,pct=tot?Math.round(ras*100/tot):0,pg=tot?100-pct:0,pend=pendAudit(T);
+  const kp=(v,l,b)=>`<div class="kpi ${b?'b':''}"><div class="kv">${v}</div><div class="kl">${l}</div></div>`;
+  let h=`<div class="sumsec" data-pb style="border-inline-start-color:#2f6f4f"><h3>📊 عملی جدول کا مجموعی خلاصہ</h3><div class="kpis">${kp(aD+' / '+N,'عملی درج دن',1)}${kp(pD+' / '+N,'پیشگی درج دن',1)}${kp(T.boxOpen||0,'کل باکس اوپن',1)}${kp((T.dataOk||0),'ڈیٹا درست کیا',1)}${kp(pend,'باقی آڈٹ',1)}</div></div>`;
+  GROUPS.forEach(g=>{
+    let ex='';
+    if(g.id==='rasai')ex=`<div class="sbar"><i style="width:${pct}%;background:#2f6f4f"></i><i style="width:${pg}%;background:#d2603f"></i></div><div class="legend"><span>🟩 رسائی: <b>${pct}%</b></span><span>🟥 غیر رسائی: <b>${tot?pg:0}%</b></span><span>کل باکس: <b>${tot}</b></span></div>`;
+    if(g.id==='audit')ex=`<div class="kpis" style="margin-top:8px"><div class="kpi" style="border-color:${pend?'#f3c9a8':'#dfece5'}"><div class="kv ${pend?'pend-bad':'pend-ok'}">${pend}</div><div class="kl">باقی آڈٹ (کل ذمہ داران − آڈٹ کیے)</div></div></div>`;
+    h+=`<div class="sumsec" data-pb style="border-inline-start-color:${g.c}"><h3>${g.t}</h3><div class="kpis">${METRICS.filter(m=>m.g===g.id).map(m=>kp(T[m.k]||0,m.l)).join('')}</div>${ex}</div>`;
   });
-  return copy;
+  return h;
 }
-function reportRowsHtml(list, includeName){
-  return sortForReport(list, includeName).map(v=>`<tr>
-    ${includeName?`<td>${esc(v.Name)}</td>`:''}
-    <td>${esc(v.Date)}</td><td>${esc(v.Din)}</td>
-    <td>${esc(v.MuqamPaishgi)}</td><td>${esc(v.PaishgiJadwal)}</td>
-    <td>${esc(v.MuqamAmli)}</td><td>${esc(v.AmliJadwal)}</td>
-  </tr>`).join('');
+function summaryFromRows(rows,pa,su){
+  const m={};
+  rows.forEach(v=>{const x=m[v.Username]||(m[v.Username]={Username:v.Username,Name:v.Name,PaishgiDays:0,AmliDays:0,Totals:{},PaishgiStatus:pa[v.Username]||'draft',MonthSubmitted:!!su[v.Username]});
+    if(v.MuqamPaishgi||v.PaishgiJadwal)x.PaishgiDays++;if(hasAmli(v))x.AmliDays++;
+    Object.keys(v.Stats||{}).forEach(k=>{x.Totals[k]=LAST_KEYS.includes(k)?v.Stats[k]:(x.Totals[k]||0)+v.Stats[k];});});
+  return Object.keys(m).map(k=>m[k]);
 }
-function reportHeadHtml(includeName){
-  return `<tr>${includeName?'<th>ذمہ دار</th>':''}<th>تاریخ</th><th>دن</th><th>مقام (پیشگی)</th><th>پیشگی جدول</th><th>مقام (عملی)</th><th>عملی جدول</th></tr>`;
+
+/* ===== Excel / PDF / Print ===== */
+const LIBS={xlsx:'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js',jspdf:'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js',h2c:'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js'};
+const loaded={};
+function loadLib(k,check){ if(check())return Promise.resolve(); if(loaded[k])return loaded[k];
+  return loaded[k]=new Promise((res,rej)=>{const t=document.createElement('script');t.src=LIBS[k];t.onload=()=>check()?res():rej(new Error('lib'));t.onerror=()=>{delete loaded[k];rej(new Error('lib'));};document.head.appendChild(t);}); }
+async function saveFile(name,blob){
+  try{
+    if(window.__saveFile){await window.__saveFile(name,blob);return;}
+    const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();
+    setTimeout(()=>{URL.revokeObjectURL(u);a.remove();},2000);toast('فائل تیار: '+name+' ✓');
+  }catch(e){if(e&&e.code==='declined')return;toast('فائل محفوظ نہیں ہو سکی','err');}
 }
-function reportDocHtml(list, meta, includeName, forExcel){
-  const printCss = forExcel ? '' : `
-    @page { size: A4; margin: 12mm; }
-    @media print { .noprint{display:none} }
-  `;
-  return `<!DOCTYPE html><html lang="ur" dir="rtl"><head><meta charset="UTF-8">
-  <title>${esc(meta.title)} - ${esc(meta.month||'')}</title>
-  <style>
-    *{box-sizing:border-box}
-    body{font-family:"Jameel Noori Nastaleeq","Noto Nastaliq Urdu","Noto Naskh Arabic",Tahoma,sans-serif;direction:rtl;color:#1f2a24;margin:0;font-size:15px}
-    .head{text-align:center;border-bottom:2px solid #2f6f4f;padding-bottom:8px;margin-bottom:10px}
-    .head h1{margin:0;font-size:22px;color:#255a40}
-    .head .s{margin:4px 0 0;font-size:14px;color:#555}
-    .meta{display:flex;justify-content:space-between;font-size:13px;color:#444;margin-bottom:10px}
-    table{width:100%;border-collapse:collapse;font-size:12.5px}
-    th,td{border:1px solid #999;padding:6px 5px;text-align:center;vertical-align:top}
-    th{background:#e7f1ea;font-weight:700}
-    tr{page-break-inside:avoid}
-    .foot{margin-top:14px;font-size:11px;color:#777;text-align:center;border-top:1px solid #ccc;padding-top:6px}
-    ${printCss}
-  </style></head>
-  <body>
-    <div class="head">
-      <h1>${esc(meta.title)}</h1>
-      <p class="s">${esc(meta.subtitle||'')}</p>
-    </div>
-    <div class="meta">
-      <span>${meta.name?('ذمہ دار: '+esc(meta.name)):''}</span>
-      <span>مہینہ: ${esc(monthLabel(meta.month))}</span>
-      <span>تاریخ اجراء: ${esc(new Date().toLocaleDateString('ur-PK'))}</span>
-    </div>
-    <table><thead>${reportHeadHtml(includeName)}</thead><tbody>${reportRowsHtml(list, includeName)}</tbody></table>
-    <div class="foot">${esc(meta.title)} — خودکار طور پر تیار کردہ رپورٹ</div>
-  </body></html>`;
+function exportBtns(k){return `<button class="btn ghost" onclick="doExport('${k}','xlsx')">📗 Excel</button><button class="btn ghost" onclick="doExport('${k}','pdf')">📕 PDF</button><button class="btn ghost" onclick="doExport('${k}','print')">🖨️ پرنٹ</button>`;}
+async function exportXlsx(fname,sheets){
+  try{await loadLib('xlsx',()=>window.XLSX);}catch(e){
+    const csv='\ufeff'+sheets[0].rows.map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(',')).join('\r\n');
+    toast('Excel لائبریری لوڈ نہ ہوئی، CSV بنائی جا رہی ہے','err');await saveFile(fname.replace('.xlsx','.csv'),new Blob([csv],{type:'text/csv'}));return;}
+  const wb=XLSX.utils.book_new();
+  sheets.forEach(s=>{const ws=XLSX.utils.aoa_to_sheet(s.rows);ws['!cols']=(s.widths||[]).map(w=>({wch:w}));XLSX.utils.book_append_sheet(wb,ws,s.name.slice(0,31));});
+  wb.Workbook={Views:[{RTL:true}]};
+  const out=XLSX.write(wb,{bookType:'xlsx',type:'array'});
+  await saveFile(fname,new Blob([out],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}));
 }
-function printReport(list, meta, includeName){
-  const html = reportDocHtml(list, meta, includeName, false);
-  const iframe = document.createElement('iframe');
-  iframe.style.position='fixed'; iframe.style.right='-10000px'; iframe.style.bottom='0'; iframe.style.width='0'; iframe.style.height='0';
-  document.body.appendChild(iframe);
-  iframe.onload = function(){
-    setTimeout(()=>{
-      iframe.contentWindow.focus();
-      iframe.contentWindow.print();
-      setTimeout(()=>{ iframe.remove(); }, 1000);
-    }, 250);
-  };
-  iframe.srcdoc = html;
+function printHtml(html){
+  const f=document.createElement('iframe');f.style.cssText='position:fixed;right:0;bottom:0;width:0;height:0;border:0';document.body.appendChild(f);
+  const fl=document.querySelector('link[href*="fonts.googleapis"]'),css=[...document.querySelectorAll('style')].map(x=>x.textContent).join('\n');
+  const d=f.contentWindow.document;d.open();
+  d.write('<!DOCTYPE html><html lang="ur" dir="rtl"><head><meta charset="utf-8">'+(fl?'<link href="'+fl.href+'" rel="stylesheet">':'')+'<style>'+css+
+  '\n@page{size:A4 landscape;margin:9mm}html,body{background:#fff!important;margin:0;padding:0}body{font-size:12.5px;line-height:1.95}'+
+  'table.rt{min-width:0!important;width:100%;font-size:11px}.tablewrap{overflow:visible}thead{display:table-header-group}'+
+  'tr,[data-pb]{break-inside:avoid;page-break-inside:avoid}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}#testbar{display:none}'+
+  '</style></head><body>'+html+'</body></html>');d.close();
+  setTimeout(()=>{try{f.contentWindow.focus();f.contentWindow.print();}catch(e){toast('پرنٹ اس ویو میں دستیاب نہیں، PDF ڈاؤن لوڈ کریں','err');}setTimeout(()=>f.remove(),90000);},1200);
 }
-function exportToExcel(list, meta, includeName){
-  const html = reportDocHtml(list, meta, includeName, true)
-    .replace('<html lang="ur" dir="rtl">', '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40" lang="ur" dir="rtl">')
-    .replace('</head>', `<!--[if gte mso 9]><xml>
-      <x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>
-        <x:Name>${esc(meta.month||'Report')}</x:Name>
-        <x:WorksheetOptions><x:DisplayRightToLeft/><x:Print><x:ValidPrinterInfo/><x:PaperSizeIndex>9</x:PaperSizeIndex></x:Print></x:WorksheetOptions>
-      </x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook>
-    </xml><![endif]--></head>`);
-  const blob = new Blob(['\ufeff', html], { type: 'application/vnd.ms-excel;charset=utf-8' });
-  const a = document.createElement('a');
-  const safeName = (meta.name ? meta.name.replace(/\s+/g,'_') : 'Report');
-  a.href = URL.createObjectURL(blob);
-  a.download = safeName + '_' + (meta.month||'') + '.xls';
-  document.body.appendChild(a); a.click(); a.remove();
+async function exportPdf(fname,html){
+  toast('PDF بن رہی ہے… ذرا انتظار کریں');
+  try{await loadLib('jspdf',()=>window.jspdf);await loadLib('h2c',()=>window.html2canvas);}catch(e){toast('PDF لائبریری لوڈ نہ ہو سکی، انٹرنیٹ چیک کریں','err');return;}
+  const root=document.createElement('div');root.setAttribute('dir','rtl');
+  root.style.cssText='position:fixed;left:-20000px;top:0;width:1120px;background:#fff;padding:20px;color:#17231d';root.innerHTML=html;document.body.appendChild(root);
+  try{
+    if(document.fonts&&document.fonts.ready)await document.fonts.ready;
+    const sc=2,canvas=await html2canvas(root,{scale:sc,backgroundColor:'#fff'});
+    const W=canvas.width,pdf=new window.jspdf.jsPDF({orientation:'landscape',unit:'pt',format:'a4'});
+    const pw=pdf.internal.pageSize.getWidth(),ph=pdf.internal.pageSize.getHeight(),mg=18,ratio=(pw-2*mg)/W,pageH=(ph-2*mg)/ratio;
+    const top=root.getBoundingClientRect().top,th=root.querySelector('thead');
+    const hT=th?(th.getBoundingClientRect().top-top)*sc:0,hH=th?th.getBoundingClientRect().height*sc:0;
+    const units=[...root.querySelectorAll('tbody tr,[data-pb]')].map(e=>{const r=e.getBoundingClientRect();return{t:(r.top-top)*sc,b:(r.bottom-top)*sc,row:e.tagName==='TR'};}).sort((a,b)=>a.t-b.t);
+    const pages=[];let cur={s:0,head:false};
+    units.forEach(u=>{const cap=pageH-(cur.head?hH:0);if(u.b-cur.s>cap&&u.t>cur.s+1){cur.e=u.t;pages.push(cur);cur={s:u.t,head:u.row&&hH>0};}});
+    cur.e=canvas.height;pages.push(cur);
+    pages.forEach((p,i)=>{if(i)pdf.addPage();const head=p.head?hH:0,h=Math.min(p.e-p.s+head,pageH*1.02);
+      const c=document.createElement('canvas');c.width=W;c.height=Math.round(h);const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,W,h);
+      if(head)x.drawImage(canvas,0,hT,W,hH,0,0,W,hH);
+      x.drawImage(canvas,0,p.s,W,p.e-p.s,0,head,W,p.e-p.s);
+      pdf.addImage(c.toDataURL('image/jpeg',0.92),'JPEG',mg,mg,W*ratio,c.height*ratio);});
+    await saveFile(fname,pdf.output('blob'));
+  }catch(e){toast('PDF نہیں بن سکی: '+e.message,'err');}
+  finally{root.remove();}
+}
+const HDR=['تاریخ','دن','مقام (پیشگی)','پیشگی جدول','مقام (عملی)','عملی جدول'].concat(METRICS.map(m=>m.l));
+function xlRows(list,nm){return [(nm?['ذمہ دار']:[]).concat(HDR)].concat(list.map(v=>(nm?[v.Name]:[]).concat([v.Date,v.Din,v.MuqamPaishgi||'',v.PaishgiJadwal||'',v.MuqamAmli||'',v.AmliJadwal||'']).concat(METRICS.map(m=>(v.Stats||{})[m.k]||0))));}
+function xlSummary(r,N){const g=(x,k)=>(x.Totals||{})[k]||0;
+  return [['ذمہ دار','پیشگی درج (دن)','عملی درج (دن)','مہینے کے کل دن','پیشگی کی حالت','مہینہ جمع'].concat(METRICS.map(m=>m.l),['باقی آڈٹ'])]
+   .concat(r.map(x=>[x.Name,x.PaishgiDays,x.AmliDays,N,ST[x.PaishgiStatus]||'ڈرافٹ',x.MonthSubmitted?'جی ہاں':'نہیں'].concat(METRICS.map(m=>g(x,m.k)),[pendAudit(x.Totals||{})])))
+   .concat([['میزان','','','','',''].concat(METRICS.map(m=>r.reduce((a,x)=>a+g(x,m.k),0)),[r.reduce((a,x)=>a+pendAudit(x.Totals||{}),0)])]);}
+const repHeader=(t,s)=>`<div style="background:linear-gradient(120deg,#1f5f8b,#2f6f4f);color:#fff;border-radius:14px;padding:10px 22px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:24px;line-height:2">📋 ذمہ دار پورٹل</div><div style="font-size:17px;opacity:.92">${esc(t)}</div></div><div style="text-align:left"><div style="font-size:21px;font-weight:700;line-height:2">${esc(s)}</div><div style="font-size:12px;opacity:.85">تیار کردہ: ${new Date().toLocaleDateString('en-GB')}</div></div></div>`;
+async function doExport(kind,fmt){
+  let title,sub,tag,body,sheets;
+  if(kind==='nsum'){
+    if(!lastSum||!lastSum.length){toast('پہلے خلاصہ لوڈ ہونے دیں','err');return;}
+    const rows=sumSel===null?lastSum:lastSum.filter(x=>sumSel.has(x.Username));
+    if(!rows.length){toast('کوئی ذمہ دار منتخب نہیں','err');return;}
+    const N=daysIn(nMonth);title='خلاصہ — '+(sumSel===null?'تمام ذمہ داران':'منتخب ذمہ داران ('+rows.length+')');sub=monthLabel(nMonth);tag='summary_'+nMonth;body=summaryTable(rows,N,false);
+    sheets=[{name:'خلاصہ',rows:xlSummary(rows,N),widths:[22,14,14,14,14,12].concat(METRICS.map(()=>15))}];
+  }else{
+    let list,nm=false,who,m,N,sr,st;
+    if(kind==='z'){list=monthList(md.entries,selMonth);who=me.name;m=selMonth;tag='report_'+me.username+'_'+m;st=md;}
+    else if(kind==='nz'){list=monthList(nMd.entries,nMonth);who=nZName();m=nMonth;tag='report_'+nZ+'_'+m;st=nMd;}
+    else{
+      if(!lastRep||!lastRep.rows.length){toast('اس مہینے کا ڈیٹا موجود نہیں','err');return;}
+      list=repFilterZ?lastRep.rows.filter(v=>v.Username===repFilterZ):lastRep.rows;
+      if(!list.length){toast('منتخب ذمہ دار کا اس مہینے کوئی ڈیٹا نہیں','err');return;}
+      nm=!repFilterZ;who=repFilterZ?zNameOf(repFilterZ):'تمام ذمہ داران';m=nMonth;tag='monthly_report_'+(repFilterZ||'all')+'_'+m;
+      st={paishgiStatus:repFilterZ?(lastRep.paishgi[repFilterZ]||'draft'):'draft',monthSubmitted:repFilterZ?!!lastRep.subs[repFilterZ]:false};
+    }
+    title=who;sub=monthLabel(m);N=daysIn(m);
+    if(nm){sr=summaryFromRows(list,lastRep.paishgi,lastRep.subs);
+      body=reportTable(list,{group:true,badges:u=>pBadge(lastRep.paishgi[u]||'draft')+' '+mBadge(!!lastRep.subs[u])})+'<div data-pb style="height:10px"></div><h2 style="margin-top:14px">📊 خلاصہ</h2>'+summaryTable(sr,N,false);}
+    else{sr=[{Name:who,PaishgiDays:list.filter(v=>v.MuqamPaishgi||v.PaishgiJadwal).length,AmliDays:list.filter(hasAmli).length,Totals:sumStats(list),PaishgiStatus:st.paishgiStatus,MonthSubmitted:st.monthSubmitted}];
+      body=reportTable(list)+zSummaryHtml(list);}
+    sheets=[{name:'رپورٹ',rows:[[title+' — '+sub],[]].concat(xlRows(list,nm)),widths:(nm?[20]:[]).concat([12,10,20,28,20,28],METRICS.map(()=>15))},
+            {name:'خلاصہ',rows:xlSummary(sr,N),widths:[22,14,14,14,14,12].concat(METRICS.map(()=>15))}];
+  }
+  const html=repHeader(title,sub)+body+'<div data-pb style="text-align:center;font-size:11px;color:#6b7a72;margin-top:10px">— ذمہ دار پورٹل —</div>';
+  if(fmt==='xlsx')await exportXlsx(tag+'.xlsx',sheets);else if(fmt==='print')printHtml(html);else await exportPdf(tag+'.pdf',html);
 }
 
 renderLogin();
