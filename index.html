@@ -171,12 +171,25 @@ h2{font-size:19px;line-height:2}
 <script>
 /* ===== helpers ===== */
 const $=id=>document.getElementById(id);
+
+/* اگر یہ صفحہ GitHub Pages (یا کسی اور سائٹ) سے کھلا ہو تو یہاں اپنی Apps Script Web App کا
+   /exec لنک لکھیں۔ Apps Script کے اندر سے کھلنے پر اس کی ضرورت نہیں (خالی چھوڑ دیں تو بھی چلے گا)۔ */
+const EXEC_URL='https://script.google.com/macros/s/AKfycbzmLCD2MiCNvh9ZXR6Btqr2no0l0lmR5ayXW-so27zGiqyknMuWbll5unFq_tpq6jDU/exec';
+
 function gsRun(fn){
   const args=Array.prototype.slice.call(arguments,1);
-  return new Promise((resolve,reject)=>{
-    const runner=google.script.run.withSuccessHandler(resolve).withFailureHandler(e=>reject(new Error((e&&e.message)||e)));
-    runner[fn].apply(runner,args);
-  });
+  if(window.google&&google.script&&google.script.run){
+    return new Promise((resolve,reject)=>{
+      const runner=google.script.run.withSuccessHandler(resolve).withFailureHandler(e=>reject(new Error((e&&e.message)||e)));
+      runner[fn].apply(runner,args);
+    });
+  }
+  // Apps Script کے باہر (مثلاً GitHub Pages) سے چلنے پر: عام HTTP کے ذریعے بات کریں
+  if(!EXEC_URL)return Promise.reject(new Error('EXEC_URL سیٹ نہیں کیا گیا — index.html میں اپنا Web App لنک درج کریں۔'));
+  return fetch(EXEC_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({fn,args})})
+    .then(r=>{if(!r.ok)throw new Error('سرور کا جواب: '+r.status);return r.json();})
+    .then(j=>{if(!j||j.ok!==true)throw new Error((j&&j.error)||'نامعلوم خرابی');return j.value;})
+    .catch(e=>{throw new Error(/Failed to fetch|NetworkError/.test(e.message)?'سرور تک رسائی نہیں ہو سکی (انٹرنیٹ یا CORS مسئلہ)۔':e.message);});
 }
 async function call(fn){ const a=Array.prototype.slice.call(arguments,1);
   try{ return await gsRun.apply(null,[fn].concat(a)); }catch(e){ toast('خرابی: '+e.message,'err'); return null; } }
