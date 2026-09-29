@@ -184,12 +184,16 @@ function gsRun(fn){
       runner[fn].apply(runner,args);
     });
   }
-  // Apps Script کے باہر (مثلاً GitHub Pages) سے چلنے پر: عام HTTP کے ذریعے بات کریں
+  // Apps Script کے باہر (مثلاً GitHub Pages) سے چلنے پر: GET کے ذریعے بات کریں
+  // (POST سے پرہیز کیا گیا ہے کیونکہ Google کا کراس-اوریجن ری ڈائریکٹ POST کا ڈیٹا گرا دیتا ہے)
   if(!EXEC_URL)return Promise.reject(new Error('EXEC_URL سیٹ نہیں کیا گیا — index.html میں اپنا Web App لنک درج کریں۔'));
-  return fetch(EXEC_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({fn,args})})
+  const argsJson=JSON.stringify(args);
+  if(argsJson.length>1800)return Promise.reject(new Error('یہ ڈیٹا اتنا بڑا ہے کہ GitHub سے محفوظ نہیں ہو سکتا — براہِ کرم اصل Apps Script لنک سے یہ کام کریں۔'));
+  const url=EXEC_URL+'?fn='+encodeURIComponent(fn)+'&args='+encodeURIComponent(argsJson)+'&_='+Date.now();
+  return fetch(url,{method:'GET'})
     .then(r=>{if(!r.ok)throw new Error('سرور کا جواب: '+r.status);return r.json();})
     .then(j=>{if(!j||j.ok!==true)throw new Error((j&&j.error)||'نامعلوم خرابی');return j.value;})
-    .catch(e=>{throw new Error(/Failed to fetch|NetworkError/.test(e.message)?'سرور تک رسائی نہیں ہو سکی (انٹرنیٹ یا CORS مسئلہ)۔':e.message);});
+    .catch(e=>{throw new Error(/Failed to fetch|NetworkError/.test(e.message)?'سرور تک رسائی نہیں ہو سکی (انٹرنیٹ یا لنک کا مسئلہ)۔':e.message);});
 }
 async function call(fn){ const a=Array.prototype.slice.call(arguments,1);
   try{ return await gsRun.apply(null,[fn].concat(a)); }catch(e){ toast('خرابی: '+e.message,'err'); return null; } }
