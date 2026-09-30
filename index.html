@@ -281,8 +281,25 @@ async function adminCreate(){
 }
 async function loadUsers(){
   const l=await call('getAllUsers'); if(!l)return;
-  $('ulist').innerHTML='<table class="rt" style="min-width:0"><thead><tr><th class="g0">نام</th><th class="g0">یوزر نیم</th><th class="g0">کردار</th></tr></thead><tbody>'+
-  l.map(v=>`<tr><td>${esc(v.name)}</td><td>${esc(v.username)}</td><td>${v.role==='admin'?'ایڈمن':v.role==='nazim'?'ناظم':'ذمہ دار'}</td></tr>`).join('')+'</tbody></table>';
+  $('ulist').innerHTML='<table class="rt" style="min-width:0"><thead><tr><th class="g0">نام</th><th class="g0">یوزر نیم</th><th class="g0">کردار</th><th class="g0">پاس ورڈ</th></tr></thead><tbody>'+
+  l.map(v=>`<tr><td>${esc(v.name)}</td><td>${esc(v.username)}</td><td>${v.role==='admin'?'ایڈمن':v.role==='nazim'?'ناظم':'ذمہ دار'}</td><td><button class="btn ghost" data-u="${esc(v.username)}" data-n="${esc(v.name)}" onclick="resetPw(this)">🔑 ری سیٹ</button></td></tr>`).join('')+'</tbody></table>';
+}
+function resetPw(b){
+  const u=b.dataset.u,n=b.dataset.n;
+  showModal(`<h2>پاس ورڈ ری سیٹ</h2><p>${esc(n)} (${esc(u)}) کا نیا پاس ورڈ:</p>
+  <input id="rp_new" type="text" autocomplete="off">
+  <p style="margin-top:10px">تصدیق کے لیے اپنا ایڈمن پاس ورڈ:</p>
+  <input id="rp_adm" type="password" autocomplete="current-password">
+  <div class="msg" id="rp_msg"></div>
+  <div class="row" style="justify-content:flex-end;margin-top:12px"><button class="btn ghost" id="rp_c">منسوخ</button><button class="btn" id="rp_ok">ری سیٹ کریں</button></div>`);
+  $('rp_c').onclick=closeModal;
+  $('rp_ok').onclick=async()=>{
+    const np=$('rp_new').value.trim(),ap=$('rp_adm').value;
+    if(np.length<4){$('rp_msg').textContent='پاس ورڈ کم از کم 4 حروف کا ہو۔';return;}
+    const r=await call('adminResetPassword',me.username,ap,u,np);
+    if(!r)return; if(!r.ok){$('rp_msg').textContent=r.error;return;}
+    closeModal(); toast('پاس ورڈ ری سیٹ ہو گیا ✓');
+  };
 }
 
 /* ===== ZIMEDAR ===== */
